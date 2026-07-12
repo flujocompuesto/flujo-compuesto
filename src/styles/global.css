@@ -1,34 +1,46 @@
 /* ============================================================
-   Flujo Compuesto — Sistema de diseño
-   Paleta: verde profundo (crecimiento) + ámbar (prosperidad)
-   sobre crema cálida. Serio pero cercano.
+   Flujo Compuesto — Sistema de diseño v2 (brand board de Ivan)
+   Primario: verde vivo. Tinta: navy. Secundarios: mint,
+   periwinkle/índigo. Fondo: gris muy claro. Tipografía: Montserrat.
    ============================================================ */
 
 :root {
-  /* Colores */
-  --ink:        #0B1F1A;   /* texto principal */
-  --ink-soft:   #3A4A45;   /* texto secundario */
-  --muted:      #5B6B66;   /* texto terciario */
-  --green:      #10715C;   /* marca primaria */
-  --green-deep: #0B4E3F;
-  --green-100:  #E3F1EC;   /* fondos suaves */
-  --amber:      #E0A93C;   /* acento / prosperidad */
-  --amber-soft: #F6EAD0;
-  --cream:      #FAF7F1;   /* fondo página */
-  --card:       #FFFFFF;
-  --line:       #E7E1D6;   /* bordes */
-  --danger:     #C2544B;
+  /* ── Marca ── */
+  --green:        #1DBE60;   /* primario */
+  --green-deep:   #128A46;   /* hover / énfasis oscuro */
+  --green-bright: #2EE272;   /* acento brillante (highlights, detalles) */
+  --green-mint:   #6FE3A5;   /* apoyo suave */
+  --green-100:    #DCF7E8;   /* fondos suaves / marca de resaltado */
 
-  /* Tipografía */
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --navy:         #24344B;   /* tinta principal (texto) */
+  --navy-soft:    #45566E;   /* texto secundario */
 
-  /* Medidas */
+  --indigo:       #4A55A2;   /* secundario (datos / detalles) */
+  --periwinkle:   #8A93C4;
+  --blue:         #2E86D1;
+
+  /* ── Neutros ── */
+  --ink:      var(--navy);
+  --ink-soft: var(--navy-soft);
+  --muted:    #64707F;
+  --gray-100: #F0F1F2;       /* fondo página */
+  --card:     #FFFFFF;
+  --line:     #E2E5E9;
+  --danger:   #C2544B;
+
+  /* Aliases usados por las páginas (mantener) */
+  --cream: var(--gray-100);
+
+  /* ── Tipografía: Montserrat en todo ── */
+  --font-sans: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: var(--font-sans); /* headings también en Montserrat */
+
+  /* ── Medidas ── */
   --maxw: 1120px;
   --radius: 14px;
   --radius-lg: 22px;
-  --shadow: 0 1px 2px rgba(11,31,26,.04), 0 8px 30px rgba(11,31,26,.06);
-  --shadow-lg: 0 20px 60px rgba(11,31,26,.12);
+  --shadow: 0 1px 2px rgba(36,52,75,.05), 0 8px 30px rgba(36,52,75,.07);
+  --shadow-lg: 0 20px 60px rgba(36,52,75,.14);
 }
 
 * { box-sizing: border-box; }
@@ -39,20 +51,23 @@ body {
   margin: 0;
   font-family: var(--font-sans);
   color: var(--ink);
-  background: var(--cream);
-  line-height: 1.6;
-  font-size: 17px;
+  background: var(--gray-100);
+  line-height: 1.65;
+  font-size: 16.5px;
   -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3 { font-family: var(--font-serif); font-weight: 700; line-height: 1.12; color: var(--ink); letter-spacing: -0.01em; margin: 0; }
-h1 { font-size: clamp(2.2rem, 5.2vw, 3.6rem); }
-h2 { font-size: clamp(1.7rem, 3.6vw, 2.5rem); }
-h3 { font-size: clamp(1.15rem, 2vw, 1.4rem); }
+h1, h2, h3 { font-family: var(--font-sans); font-weight: 800; line-height: 1.15; color: var(--ink); letter-spacing: -0.02em; margin: 0; }
+h1 { font-size: clamp(2rem, 4.6vw, 3.15rem); }
+h2 { font-size: clamp(1.55rem, 3.2vw, 2.2rem); }
+h3 { font-size: clamp(1.1rem, 2vw, 1.3rem); }
 p  { margin: 0 0 1rem; }
-a  { color: var(--green); text-decoration: none; }
-a:hover { color: var(--green-deep); }
+a  { color: var(--green-deep); text-decoration: none; font-weight: 600; }
+a:hover { color: var(--green); }
 img, svg { max-width: 100%; display: block; }
+
+/* Resaltado de marca (estilo cita Benjamin Franklin del brand board) */
+mark { background: var(--green-100); color: inherit; padding: 0 .18em; border-radius: 4px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
 
 /* Layout */
 .wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
@@ -60,28 +75,30 @@ img, svg { max-width: 100%; display: block; }
 .section--tight { padding: 56px 0; }
 .center { text-align: center; }
 .eyebrow {
-  display: inline-block; font-family: var(--font-sans); font-weight: 700;
-  font-size: .8rem; letter-spacing: .12em; text-transform: uppercase;
-  color: var(--green); background: var(--green-100);
+  display: inline-block; font-weight: 700;
+  font-size: .78rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--green-deep); background: var(--green-100);
   padding: 6px 14px; border-radius: 100px; margin-bottom: 18px;
 }
-.lead { font-size: 1.2rem; color: var(--ink-soft); max-width: 640px; }
+.lead { font-size: 1.13rem; color: var(--ink-soft); max-width: 640px; font-weight: 500; }
 
 /* Botones */
 .btn {
   display: inline-flex; align-items: center; gap: 10px; cursor: pointer;
-  font-family: var(--font-sans); font-weight: 700; font-size: 1.02rem;
-  padding: 15px 28px; border-radius: 100px; border: 1.5px solid transparent;
+  font-family: var(--font-sans); font-weight: 700; font-size: 1rem;
+  padding: 15px 28px; border-radius: 100px; border: 2px solid transparent;
   transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
   text-align: center; line-height: 1;
 }
-.btn--primary { background: var(--green); color: #fff; box-shadow: 0 8px 24px rgba(16,113,92,.28); }
-.btn--primary:hover { background: var(--green-deep); color: #fff; transform: translateY(-2px); box-shadow: 0 12px 30px rgba(16,113,92,.34); }
+/* Primario: verde vivo + texto navy (contraste AA 5.1:1) */
+.btn--primary { background: var(--green); color: var(--navy); box-shadow: 0 8px 24px rgba(29,190,96,.35); }
+.btn--primary:hover { background: var(--green-bright); color: var(--navy); transform: translateY(-2px); box-shadow: 0 12px 30px rgba(29,190,96,.4); }
+/* Oscuro: navy + texto blanco */
+.btn--dark { background: var(--navy); color: #fff; box-shadow: 0 8px 24px rgba(36,52,75,.3); }
+.btn--dark:hover { background: #1A2739; color: #fff; transform: translateY(-2px); }
 .btn--ghost { background: transparent; color: var(--ink); border-color: var(--line); }
-.btn--ghost:hover { border-color: var(--ink); color: var(--ink); }
-.btn--amber { background: var(--amber); color: var(--ink); box-shadow: 0 8px 24px rgba(224,169,60,.32); }
-.btn--amber:hover { background: #d29b2e; color: var(--ink); transform: translateY(-2px); }
-.btn--lg { padding: 18px 34px; font-size: 1.08rem; }
+.btn--ghost:hover { border-color: var(--navy); color: var(--ink); }
+.btn--lg { padding: 18px 34px; font-size: 1.05rem; }
 
 /* Cards */
 .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 28px; box-shadow: var(--shadow); }

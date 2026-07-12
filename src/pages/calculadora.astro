@@ -27,9 +27,9 @@ const appSchema = {
     <div class="wrap nav__inner">
       <a href="/" class="brand" aria-label="Flujo Compuesto — inicio">
         <svg width="30" height="30" viewBox="0 0 64 64" aria-hidden="true">
-          <rect width="64" height="64" rx="14" fill="#10715C" />
-          <path d="M12 44 C24 44, 26 20, 52 16" fill="none" stroke="#E0A93C" stroke-width="6" stroke-linecap="round" />
-          <circle cx="52" cy="16" r="6" fill="#E0A93C" />
+          <rect width="64" height="64" rx="14" fill="#24344B" />
+          <path d="M12 44 C24 44, 26 20, 52 16" fill="none" stroke="#1DBE60" stroke-width="6" stroke-linecap="round" />
+          <circle cx="52" cy="16" r="6" fill="#2EE272" />
         </svg>
         <span>Flujo Compuesto</span>
       </a>
@@ -142,7 +142,7 @@ const appSchema = {
             <em>De cero a tu primer portafolio</em> te enseña a ponerlo a trabajar de verdad.
           </p>
         </div>
-        <a href="/#freebie" class="btn btn--amber btn--lg">Quiero la guía gratis →</a>
+        <a href="/#freebie" class="btn btn--primary btn--lg">Quiero la guía gratis →</a>
       </div>
 
       <p class="center muted calc-fine">
@@ -162,7 +162,7 @@ const appSchema = {
 
 <style>
   /* NAV (mismo estilo que la landing) */
-  .nav { position: sticky; top: 0; z-index: 50; background: rgba(250,247,241,.82); backdrop-filter: saturate(180%) blur(12px); border-bottom: 1px solid var(--line); }
+  .nav { position: sticky; top: 0; z-index: 50; background: rgba(240,241,242,.85); backdrop-filter: saturate(180%) blur(12px); border-bottom: 1px solid var(--line); }
   .nav__inner { display: flex; align-items: center; gap: 24px; height: 68px; }
   .brand { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-serif); font-weight: 700; font-size: 1.15rem; color: var(--ink); }
   .nav__links { display: flex; gap: 26px; margin-left: auto; }
@@ -178,7 +178,7 @@ const appSchema = {
   /* Controles */
   .calc-controls { position: sticky; top: 92px; display: grid; gap: 24px; }
   .ctl label { display: flex; justify-content: space-between; font-weight: 700; font-size: .95rem; margin-bottom: 8px; }
-  .ctl output { color: var(--green); font-variant-numeric: tabular-nums; }
+  .ctl output { color: var(--green-deep); font-variant-numeric: tabular-nums; }
   .ctl__money { display: flex; align-items: center; gap: 8px; border: 1.5px solid var(--line); border-radius: 12px; padding: 0 14px; background: var(--cream); }
   .ctl__money span { font-weight: 700; color: var(--muted); }
   .ctl__money input { border: 0; background: transparent; width: 100%; padding: 13px 0; font-size: 1.05rem; font-weight: 700; font-family: var(--font-sans); color: var(--ink); font-variant-numeric: tabular-nums; }
@@ -194,13 +194,13 @@ const appSchema = {
   .calc-result { display: grid; gap: 22px; }
   .hero-num { text-align: center; padding: 34px 28px; }
   .hero-num__label { font-weight: 700; font-size: .9rem; letter-spacing: .05em; text-transform: uppercase; }
-  .hero-num__value { font-family: var(--font-serif); font-weight: 700; font-size: clamp(2.6rem, 6vw, 4rem); color: var(--green-deep); line-height: 1.1; margin: 6px 0 14px; font-variant-numeric: tabular-nums; }
+  .hero-num__value { font-weight: 800; font-size: clamp(2.4rem, 6vw, 3.6rem); color: var(--navy); line-height: 1.1; margin: 6px 0 14px; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
   .hero-num__split { display: flex; gap: 22px; justify-content: center; flex-wrap: wrap; font-size: .98rem; color: var(--ink-soft); }
   .hero-num__split strong { font-variant-numeric: tabular-nums; color: var(--ink); }
   .split { display: inline-flex; align-items: center; gap: 8px; }
   .sw { width: 12px; height: 12px; border-radius: 4px; display: inline-block; }
-  .sw--ap { background: #C08A22; }
-  .sw--cr { background: #0E8C6B; }
+  .sw--ap { background: #4A55A2; }
+  .sw--cr { background: #169A4E; }
   .hero-num__insight { margin-top: 16px; font-size: .95rem; color: var(--green-deep); background: var(--green-100); border-radius: 100px; padding: 8px 18px; display: inline-block; }
 
   /* Gráfico */
@@ -224,7 +224,7 @@ const appSchema = {
   tbody tr:last-child td { border-bottom: 0; font-weight: 800; background: var(--green-100); }
 
   /* CTA final */
-  .calc-cta { display: flex; align-items: center; justify-content: space-between; gap: 28px; margin-top: 44px; border: 2px solid var(--amber); flex-wrap: wrap; }
+  .calc-cta { display: flex; align-items: center; justify-content: space-between; gap: 28px; margin-top: 44px; border: 2px solid var(--green); flex-wrap: wrap; }
   .calc-cta h2 { font-size: 1.45rem; }
   .calc-fine { font-size: .82rem; margin-top: 24px; }
 
@@ -248,10 +248,10 @@ const appSchema = {
   const inTasa    = $('c-tasa')    as HTMLInputElement;
 
   // Colores de serie validados para gráfico (croma/CVD/contraste OK)
-  const C_AP = '#C08A22';   // aportado (ámbar)
-  const C_CR = '#0E8C6B';   // crecimiento (verde)
-  const C_GRID = '#E7E1D6';
-  const C_MUTED = '#5B6B66';
+  const C_AP = '#4A55A2';   // aportado (índigo)
+  const C_CR = '#169A4E';   // crecimiento (verde)
+  const C_GRID = '#E2E5E9';
+  const C_MUTED = '#64707F';
 
   const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US');
   const fmtK = (n: number) =>
@@ -347,8 +347,8 @@ const appSchema = {
     // Punto final + etiquetas directas (identidad no depende solo del color)
     g += `<circle cx="${x(anios)}" cy="${y(fin.total)}" r="5" fill="${C_CR}"/>`;
     const yLblTotal = Math.max(y(fin.total), PT + 10);
-    g += `<text x="${W - PR - 6}" y="${yLblTotal - 10}" text-anchor="end" font-size="12" font-weight="700" fill="#0B4E3F">Total ${fmtK(fin.total)}</text>`;
-    g += `<text x="${W - PR - 6}" y="${Math.min(y(fin.aportado) + 18, base - 6)}" text-anchor="end" font-size="12" font-weight="700" fill="#8a6516">Aportado ${fmtK(fin.aportado)}</text>`;
+    g += `<text x="${W - PR - 6}" y="${yLblTotal - 10}" text-anchor="end" font-size="12" font-weight="700" fill="#128A46">Total ${fmtK(fin.total)}</text>`;
+    g += `<text x="${W - PR - 6}" y="${Math.min(y(fin.aportado) + 18, base - 6)}" text-anchor="end" font-size="12" font-weight="700" fill="#3A4482">Aportado ${fmtK(fin.aportado)}</text>`;
 
     // Capa de hover
     g += `<line id="xhair" x1="0" y1="${PT}" x2="0" y2="${base}" stroke="${C_MUTED}" stroke-width="1" stroke-dasharray="3 3" visibility="hidden"/>`;

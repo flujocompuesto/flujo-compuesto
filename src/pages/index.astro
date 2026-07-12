@@ -230,7 +230,7 @@ const faqSchema = {
             <input id="email" name="email" type="email" placeholder="tu@correo.com" autocomplete="email" required />
             <button type="submit" class="btn btn--primary btn--lg" style="width:100%;justify-content:center">Quiero la guía gratis</button>
             <p class="form__fine muted">Sin spam. Contenido educativo, no asesoría de inversión. Cancela cuando quieras.</p>
-            <p class="form__fine" style="margin-top:6px;text-align:center">¿Primero quieres jugar con los números? <a href="/calculadora"><strong>Abre la calculadora →</strong></a></p>
+            <p class="form__fine" style="margin-top:6px;text-align:center">¿Prefieres leerla ya? <a href="/guia"><strong>Lee la guía completa →</strong></a> · <a href="/calculadora"><strong>Abre la calculadora →</strong></a></p>
           </form>
         </div>
       </div>
@@ -246,11 +246,11 @@ const faqSchema = {
         <p class="lead center" style="margin:14px auto 0">Empiezas gratis y avanzas solo si quieres ir más lejos.</p>
       </div>
       <div class="ladder" style="margin-top:48px">
-        <div class="ladder__step card">
+        <a href="/guia" class="ladder__step card" style="text-decoration:none;color:inherit;display:block">
           <div class="ladder__tag">Gratis</div>
           <h3>La guía + calculadora</h3>
           <p class="muted">Tu primer contacto con la filosofía y la mecánica. Sin costo, sin compromiso.</p>
-        </div>
+        </a>
         <div class="ladder__step card">
           <div class="ladder__tag">Curso</div>
           <h3>El sistema completo</h3>

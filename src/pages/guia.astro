@@ -1,0 +1,308 @@
+---
+import Base from '../layouts/Base.astro';
+
+// ── SEO + AI-search: Article con autor (refuerza E-E-A-T) ──
+const site = 'https://flujocompuesto.com';
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'De cero a tu primer portafolio: la guía de arranque',
+  description:
+    'Guía práctica para empezar a invertir desde Latinoamérica: la mentalidad, los 4 principios, qué es un ETF, los errores que te frenan y tu primer paso concreto.',
+  inLanguage: 'es',
+  author: {
+    '@type': 'Person',
+    name: 'Ivan Herrera',
+    url: site + '/sobre-mi',
+    jobTitle: 'Ingeniero · Especialista en QA',
+  },
+  publisher: { '@type': 'Organization', name: 'Flujo Compuesto', url: site },
+  mainEntityOfPage: site + '/guia',
+};
+---
+
+<Base
+  title="De cero a tu primer portafolio: la guía de arranque — Flujo Compuesto"
+  description="La guía gratuita para empezar a invertir desde Latinoamérica sin miedo: la mentalidad, los 4 principios de bajo costo, qué es un ETF, los 3 errores que te frenan y tu primer paso concreto hoy."
+  path="/guia"
+  ogType="article"
+  schema={articleSchema}
+>
+  <!-- NAV -->
+  <header class="nav">
+    <div class="wrap nav__inner">
+      <a href="/" class="brand" aria-label="Flujo Compuesto — inicio">
+        <svg width="30" height="30" viewBox="0 0 64 64" aria-hidden="true">
+          <rect width="64" height="64" rx="14" fill="#24344B" />
+          <path d="M12 44 C24 44, 26 20, 52 16" fill="none" stroke="#1DBE60" stroke-width="6" stroke-linecap="round" />
+          <circle cx="52" cy="16" r="6" fill="#2EE272" />
+        </svg>
+        <span>Flujo Compuesto</span>
+      </a>
+      <nav class="nav__links">
+        <a href="/#filosofia">Filosofía</a>
+        <a href="/calculadora">Calculadora</a>
+        <a href="/sobre-mi">Sobre mí</a>
+        <a href="/#faq">Preguntas</a>
+      </nav>
+      <a href="#pdf" class="btn btn--primary nav__cta">Descargar PDF</a>
+    </div>
+  </header>
+
+  <article class="guia">
+    <div class="wrap g-narrow">
+      <!-- ── Encabezado ── -->
+      <header class="g-head">
+        <span class="eyebrow">Guía gratuita · Lectura de 12 min</span>
+        <h1>De cero a tu primer portafolio</h1>
+        <p class="lead">La guía de arranque para empezar a invertir desde Latinoamérica — sin jerga, sin adivinar el mercado y sin promesas de hacerte rico rápido.</p>
+        <div class="g-byline">
+          <div class="g-byline__av" aria-hidden="true">IH</div>
+          <div>Por <a href="/sobre-mi"><strong>Ivan Herrera</strong></a> · Ingeniero, no financiero<br>
+          <span class="muted">13 años gestionando su propio patrimonio</span></div>
+        </div>
+      </header>
+
+      <!-- ── Lo que vas a aprender ── -->
+      <div class="g-toc card">
+        <div class="g-toc__title">Lo que vas a aprender</div>
+        <ul>
+          <li><a href="#mentalidad">El cambio de mentalidad que lo cambia todo</a></li>
+          <li><a href="#principios">Los 4 principios para invertir sin miedo</a></li>
+          <li><a href="#etf">Qué es un ETF (sin jerga)</a></li>
+          <li><a href="#compuesto">El interés compuesto, con tus números</a></li>
+          <li><a href="#errores">Los 3 errores que te frenan</a></li>
+          <li><a href="#primer-paso">Tu primer paso concreto, hoy</a></li>
+        </ul>
+      </div>
+
+      <!-- ── 1. Bienvenida ── -->
+      <section class="g-sec">
+        <p>Si ganas bien pero tu dinero lleva años dormido en el banco, esta guía es para ti. No necesitas ser experto, ni tener mucho capital, ni dedicarle horas. Solo necesitas entender <strong>cómo empezar</strong> — y dar el primer paso.</p>
+        <p>Soy ingeniero, no financiero. Durante 13 años traté mis finanzas como trato mi trabajo de aseguramiento de calidad: como un sistema con datos, reglas y mejora continua. Esto no es teoría de gurú; es el método que uso con mi propio dinero, resumido para que empieces hoy.</p>
+      </section>
+
+      <!-- ── 2. Mentalidad ── -->
+      <section id="mentalidad" class="g-sec">
+        <h2>1. El cambio de mentalidad que lo cambia todo</h2>
+        <p>La mayoría cree que la clave es <em>ganar más</em>. No lo es. La clave es la diferencia entre dos cosas que solemos confundir:</p>
+        <div class="g-two">
+          <div class="g-box g-box--red">
+            <strong>Ingresos</strong>
+            <p class="muted">Lo que ganas trabajando. Si dejas de trabajar, se detiene. Cambias tiempo por dinero.</p>
+          </div>
+          <div class="g-box g-box--green">
+            <strong>Patrimonio</strong>
+            <p class="muted">Lo que tu dinero genera por ti. Trabaja 24/7, incluso mientras duermes. Cambia capital por dinero.</p>
+          </div>
+        </div>
+        <p>Tu objetivo no es ganar más — es <strong>acumular activos que generen ingresos</strong>. Y hay dos enemigos silenciosos que te lo impiden si no actúas:</p>
+        <ul class="g-list">
+          <li><strong>La inflación.</strong> El dinero quieto en el banco pierde poder de compra cada año. Es una comisión invisible que pagas por no invertir.</li>
+          <li><strong>El tiempo perdido.</strong> El mayor activo de un inversionista no es el dinero — es el tiempo. Cada año que esperas, el interés compuesto tiene menos tiempo para trabajar.</li>
+        </ul>
+        <blockquote class="g-quote">El mejor momento para empezar a invertir fue hace 10 años. El segundo mejor momento es hoy.</blockquote>
+      </section>
+
+      <!-- ── 3. Principios ── -->
+      <section id="principios" class="g-sec">
+        <h2>2. Los 4 principios para invertir sin miedo</h2>
+        <p>No vamos a intentar ganarle al mercado. Vamos a <strong>capturar su rendimiento</strong> con constancia y bajo costo — el enfoque que la evidencia respalda para el inversionista promedio (la filosofía de los Bogleheads y de divulgadores como Ben Felix).</p>
+        <ol class="g-principios">
+          <li><span>01</span><div><strong>Largo plazo.</strong> El tiempo <em>en</em> el mercado le gana a intentar adivinar el momento de entrada.</div></li>
+          <li><span>02</span><div><strong>Bajo costo.</strong> Cada punto de comisión se come tu interés compuesto. Menos costo, más para ti.</div></li>
+          <li><span>03</span><div><strong>Diversificación.</strong> No apuestas a una empresa; con un solo fondo indexado te vuelves dueño de miles.</div></li>
+          <li><span>04</span><div><strong>Constancia.</strong> Inviertes con método, sin importar el titular del día. Los hábitos vencen a la suerte.</div></li>
+        </ol>
+      </section>
+
+      <!-- ── 4. ETF ── -->
+      <section id="etf" class="g-sec">
+        <h2>3. Qué es un ETF (sin jerga)</h2>
+        <p>Imagina que en vez de comprar acciones de una sola empresa —apostando a que <em>esa</em> sea la ganadora— pudieras comprar un pedacito de las 500 empresas más grandes de Estados Unidos con una sola compra. Eso es un <strong>ETF indexado</strong>.</p>
+        <p>Un ETF (fondo cotizado en bolsa) es una canasta de muchas acciones que se compra y vende como si fuera una sola. Los más conocidos:</p>
+        <div class="g-two">
+          <div class="g-box">
+            <strong>VOO</strong>
+            <p class="muted">Sigue al S&P 500 — las 500 empresas más grandes de EE.UU. (Apple, Microsoft, Amazon…). Diversificación instantánea.</p>
+          </div>
+          <div class="g-box">
+            <strong>QQQ</strong>
+            <p class="muted">Sigue al Nasdaq-100 — las 100 mayores empresas no financieras, con fuerte peso en tecnología.</p>
+          </div>
+        </div>
+        <p>¿Por qué importa? Porque comprar un índice de bajo costo es, estadísticamente, más seguro y más rentable a largo plazo que intentar escoger acciones ganadoras una por una. <strong>No necesitas acertar — necesitas participar.</strong></p>
+      </section>
+
+      <!-- ── 5. Compuesto + calculadora ── -->
+      <section id="compuesto" class="g-sec">
+        <h2>4. El interés compuesto, con tus propios números</h2>
+        <p>El interés compuesto es cuando tus ganancias empiezan a generar ganancias. Es dinero creando más dinero, sin que hagas nada. Y su efecto en el tiempo es difícil de creer hasta que lo ves con tus números.</p>
+        <div class="g-cta-box">
+          <div>
+            <strong>Haz la prueba tú mismo</strong>
+            <p class="muted" style="margin:4px 0 0">Ingresa tu monto, tu aporte mensual y los años. Mira cuánto puede crecer.</p>
+          </div>
+          <a href="/calculadora" class="btn btn--primary">Abrir la calculadora →</a>
+        </div>
+      </section>
+
+      <!-- ── 6. Errores ── -->
+      <section id="errores" class="g-sec">
+        <h2>5. Los 3 errores que te frenan</h2>
+        <div class="g-error"><span>✕</span><div><strong>No empezar.</strong> El error más caro de todos. Esperar "hasta saber más" o "hasta tener más" solo le regala años a la inflación.</div></div>
+        <div class="g-error"><span>✕</span><div><strong>Esperar el momento perfecto.</strong> Nadie sabe cuándo el mercado está "barato". Timing the market casi siempre pierde contra time in the market.</div></div>
+        <div class="g-error"><span>✕</span><div><strong>Perseguir modas.</strong> La acción de moda, la cripto del momento, el "tip" del gurú. Sin una filosofía clara, terminas comprando caro y vendiendo con miedo.</div></div>
+      </section>
+
+      <!-- ── 7. Primer paso ── -->
+      <section id="primer-paso" class="g-sec">
+        <h2>6. Tu primer paso concreto, hoy</h2>
+        <p>No necesitas hacerlo todo de una vez. Necesitas dar <strong>el primer paso</strong>. Aquí está tu checklist de arranque:</p>
+        <ol class="g-checklist">
+          <li><strong>Define tu tasa de ahorro.</strong> Decide qué porcentaje de tus ingresos vas a invertir cada mes — aunque empieces con poco. La constancia importa más que el monto.</li>
+          <li><strong>Págate primero a ti mismo.</strong> Automatiza esa transferencia el día que cobras, antes de gastar. Lo que no ves, no lo gastas.</li>
+          <li><strong>Entiende que sí puedes acceder a la bolsa de EE.UU.</strong> Desde Latinoamérica, con un bróker internacional, puedes invertir en VOO o QQQ. No necesitas vivir allá.</li>
+          <li><strong>Empieza simple.</strong> Un solo ETF indexado, de forma constante, ya te pone por delante del 90% que sigue esperando.</li>
+        </ol>
+        <p>Cada uno de estos pasos tiene su detalle — y ahí es donde entran mis recursos completos.</p>
+      </section>
+
+      <!-- ── 8. Content upgrade (captura de correo) ── -->
+      <section id="pdf" class="g-optin card">
+        <div class="g-optin__copy">
+          <span class="eyebrow" style="background:var(--green-100)">Bonus gratis</span>
+          <h2>Llévate esta guía en PDF + una plantilla de arranque</h2>
+          <p class="muted">Déjame tu correo y te envío la versión descargable de esta guía, más una plantilla simple para calcular tu tasa de ahorro y tu primer plan. Gratis.</p>
+        </div>
+        <form class="g-form" name="guia-optin" onsubmit="return false;">
+          <label for="g-nombre">Nombre</label>
+          <input id="g-nombre" type="text" placeholder="Tu nombre" autocomplete="given-name" required />
+          <label for="g-email">Correo</label>
+          <input id="g-email" type="email" placeholder="tu@correo.com" autocomplete="email" required />
+          <button type="submit" class="btn btn--primary btn--lg" style="width:100%;justify-content:center">Enviarme el PDF + plantilla</button>
+          <p class="g-fine muted">Sin spam. Contenido educativo, no asesoría de inversión. Cancela cuando quieras.</p>
+        </form>
+      </section>
+
+      <!-- ── 9. Próximo paso: productos ── -->
+      <section class="g-sec">
+        <h2>¿Y ahora qué? El siguiente paso, según tu caso</h2>
+        <p>Esta guía te dio el mapa. Cuando quieras el paso a paso detallado, según cuál sea tu freno:</p>
+        <div class="g-two g-products">
+          <div class="g-box g-box--product">
+            <div class="g-tag">Si tu freno es el dinero</div>
+            <strong>Sistema de Presupuesto</strong>
+            <p class="muted">Para saber exactamente a dónde va tu dinero y liberar margen para invertir. Guía + plantilla.</p>
+            <span class="g-soon">Próximamente</span>
+          </div>
+          <div class="g-box g-box--product">
+            <div class="g-tag">Si tu freno es la bolsa</div>
+            <strong>Tu primer $100,000 en dólares</strong>
+            <p class="muted">El paso a paso para invertir en la bolsa de EE.UU. desde Latinoamérica, sin vivir allá.</p>
+            <span class="g-soon">Próximamente</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Disclaimer ── -->
+      <p class="g-disc muted">Esta guía es contenido educativo e informativo. No constituye asesoría de inversión, financiera ni fiscal personalizada. Invertir conlleva riesgos, incluida la posible pérdida de capital. Toma tus decisiones considerando tu situación particular.</p>
+    </div>
+  </article>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="wrap center" style="font-size:.85rem">
+      <p style="margin:0">© {new Date().getFullYear()} Flujo Compuesto · Contenido educativo, no asesoría de inversión · <a href="/" style="color:rgba(255,255,255,.8)">Inicio</a> · <a href="/sobre-mi" style="color:rgba(255,255,255,.8)">Sobre mí</a></p>
+    </div>
+  </footer>
+</Base>
+
+<style>
+  .nav { position: sticky; top: 0; z-index: 50; background: rgba(240,241,242,.85); backdrop-filter: saturate(180%) blur(12px); border-bottom: 1px solid var(--line); }
+  .nav__inner { display: flex; align-items: center; gap: 24px; height: 68px; }
+  .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.15rem; color: var(--ink); }
+  .nav__links { display: flex; gap: 26px; margin-left: auto; }
+  .nav__links a { color: var(--ink-soft); font-weight: 600; font-size: .95rem; }
+  .nav__cta { padding: 10px 20px; font-size: .95rem; }
+
+  .guia { padding: 48px 0 72px; }
+  .g-narrow { max-width: 720px; }
+
+  /* Encabezado */
+  .g-head { margin-bottom: 32px; }
+  .g-head h1 { margin: 6px 0 14px; }
+  .g-byline { display: flex; align-items: center; gap: 14px; margin-top: 24px; font-size: .95rem; }
+  .g-byline__av { width: 46px; height: 46px; border-radius: 50%; background: var(--navy); color: var(--green-bright); font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: .95rem; }
+
+  /* TOC */
+  .g-toc { margin-bottom: 40px; padding: 24px 28px; }
+  .g-toc__title { font-weight: 800; margin-bottom: 12px; }
+  .g-toc ul { margin: 0; padding-left: 18px; display: grid; gap: 8px; }
+  .g-toc a { color: var(--ink-soft); }
+  .g-toc a:hover { color: var(--green-deep); }
+
+  /* Secciones */
+  .g-sec { margin-bottom: 40px; }
+  .g-sec h2 { margin-bottom: 16px; }
+  .g-sec p { font-size: 1.08rem; line-height: 1.8; color: var(--ink-soft); }
+  .g-list { display: grid; gap: 12px; padding-left: 20px; }
+  .g-list li { font-size: 1.06rem; line-height: 1.7; color: var(--ink-soft); }
+
+  /* Cajas comparativas */
+  .g-two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 22px 0; }
+  .g-box { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
+  .g-box strong { font-size: 1.1rem; }
+  .g-box p { font-size: .96rem; line-height: 1.6; margin: 6px 0 0; }
+  .g-box--green { border-top: 3px solid var(--green); }
+  .g-box--red { border-top: 3px solid var(--danger); }
+
+  /* Quote */
+  .g-quote { margin: 26px 0; padding: 20px 26px; background: var(--green-100); border-left: 4px solid var(--green); border-radius: 0 12px 12px 0; font-size: 1.18rem; font-weight: 700; color: var(--navy); line-height: 1.5; }
+
+  /* Principios */
+  .g-principios { list-style: none; padding: 0; margin: 0; display: grid; gap: 16px; }
+  .g-principios li { display: flex; gap: 16px; align-items: flex-start; }
+  .g-principios span { flex-shrink: 0; font-weight: 800; color: var(--indigo); font-size: 1.1rem; width: 30px; }
+  .g-principios div { font-size: 1.06rem; line-height: 1.6; color: var(--ink-soft); }
+
+  /* Errores */
+  .g-error { display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .g-error:last-of-type { border-bottom: 0; }
+  .g-error span { color: var(--danger); font-weight: 800; font-size: 1.2rem; flex-shrink: 0; }
+  .g-error div { font-size: 1.06rem; line-height: 1.6; color: var(--ink-soft); }
+
+  /* Checklist */
+  .g-checklist { display: grid; gap: 14px; padding-left: 22px; }
+  .g-checklist li { font-size: 1.06rem; line-height: 1.7; color: var(--ink-soft); }
+
+  /* CTA calculadora */
+  .g-cta-box { display: flex; align-items: center; justify-content: space-between; gap: 20px; background: var(--navy); border-radius: var(--radius-lg); padding: 24px 28px; margin: 24px 0; flex-wrap: wrap; }
+  .g-cta-box strong { color: #fff; font-size: 1.15rem; }
+  .g-cta-box .muted { color: rgba(255,255,255,.7); }
+
+  /* Opt-in */
+  .g-optin { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; padding: 40px; align-items: center; border: 2px solid var(--green); margin: 12px 0 44px; }
+  .g-optin h2 { margin: 8px 0 10px; font-size: 1.5rem; }
+  .g-form label { display: block; font-weight: 700; font-size: .9rem; margin: 12px 0 6px; }
+  .g-form input { width: 100%; padding: 13px 15px; border: 1.5px solid var(--line); border-radius: 12px; font-size: 1rem; font-family: var(--font-sans); background: var(--gray-100); }
+  .g-form input:focus { outline: none; border-color: var(--green); }
+  .g-form button { margin-top: 20px; }
+  .g-fine { font-size: .8rem; margin: 10px 0 0; text-align: center; }
+
+  /* Productos */
+  .g-products .g-box--product { border-top: 3px solid var(--indigo); display: flex; flex-direction: column; }
+  .g-tag { font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--indigo); margin-bottom: 8px; }
+  .g-box--product strong { font-size: 1.15rem; }
+  .g-soon { margin-top: auto; padding-top: 12px; font-size: .82rem; font-weight: 700; color: var(--muted); }
+
+  .g-disc { font-size: .85rem; line-height: 1.7; border-top: 1px solid var(--line); padding-top: 20px; margin-top: 20px; }
+
+  .footer { background: var(--ink); color: rgba(255,255,255,.7); padding: 28px 0; }
+  .footer a { color: rgba(255,255,255,.8); }
+
+  @media (max-width: 720px) {
+    .g-two, .g-optin { grid-template-columns: 1fr; }
+    .nav__links { display: none; }
+  }
+</style>

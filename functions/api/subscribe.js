@@ -62,12 +62,11 @@ export async function onRequestPost({ request, env }) {
     });
 
   try {
-    // Primer intento: con el nombre como custom field.
-    let res = post(nombre ? { ...base, custom_fields: [{ name: 'Nombre', value: nombre }] } : base);
-    res = await res;
+    // Primer intento: con el nombre en el campo nativo "First Name" de Beehiiv.
+    let res = await post(nombre ? { ...base, custom_fields: [{ name: 'First Name', value: nombre }] } : base);
 
-    // Si falla (p.ej. el custom field "Nombre" no existe aún), reintenta sin él
-    // para que al menos el correo siempre quede capturado.
+    // Si falla (p.ej. el nombre del campo no calza), reintenta sin él para que
+    // al menos el correo siempre quede capturado.
     if (!res.ok && nombre) {
       res = await post(base);
     }

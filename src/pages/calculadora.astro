@@ -1,0 +1,429 @@
+---
+import Base from '../layouts/Base.astro';
+
+// Schema: aplicación financiera gratuita (SEO + AI-search)
+const appSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Calculadora de Interés Compuesto — Flujo Compuesto',
+  url: 'https://flujocompuesto.com/calculadora',
+  applicationCategory: 'FinanceApplication',
+  operatingSystem: 'Web',
+  inLanguage: 'es',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  description:
+    'Calculadora gratuita de interés compuesto en español. Proyecta cuánto crecerá tu dinero con aportes mensuales y rendimiento anual, año por año.',
+};
+---
+
+<Base
+  title="Calculadora de Interés Compuesto (gratis, en español) — Flujo Compuesto"
+  description="¿Cuánto tendrás en 10, 20 o 30 años? Calculadora gratuita de interés compuesto: ingresa tu monto inicial, aporte mensual y rendimiento, y mira tu dinero crecer año por año."
+  path="/calculadora"
+  schema={appSchema}
+>
+  <!-- NAV (compartido con la landing) -->
+  <header class="nav">
+    <div class="wrap nav__inner">
+      <a href="/" class="brand" aria-label="Flujo Compuesto — inicio">
+        <svg width="30" height="30" viewBox="0 0 64 64" aria-hidden="true">
+          <rect width="64" height="64" rx="14" fill="#10715C" />
+          <path d="M12 44 C24 44, 26 20, 52 16" fill="none" stroke="#E0A93C" stroke-width="6" stroke-linecap="round" />
+          <circle cx="52" cy="16" r="6" fill="#E0A93C" />
+        </svg>
+        <span>Flujo Compuesto</span>
+      </a>
+      <nav class="nav__links">
+        <a href="/#filosofia">Filosofía</a>
+        <a href="/#camino">El camino</a>
+        <a href="/#faq">Preguntas</a>
+      </nav>
+      <a href="/#freebie" class="btn btn--primary nav__cta">Guía gratis</a>
+    </div>
+  </header>
+
+  <main class="calc-page">
+    <div class="wrap">
+      <!-- Encabezado -->
+      <div class="center calc-head">
+        <span class="eyebrow">Herramienta gratuita</span>
+        <h1>Calculadora de interés compuesto</h1>
+        <p class="lead" style="margin:16px auto 0">
+          Mueve los números y mira lo que el tiempo hace con tu dinero.
+          Sin registrarte, sin letra chica.
+        </p>
+      </div>
+
+      <!-- ══ Controles ══ -->
+      <div class="calc-grid">
+        <section class="card calc-controls" aria-label="Parámetros de la simulación">
+          <div class="ctl">
+            <label for="c-inicial">Monto inicial</label>
+            <div class="ctl__money">
+              <span aria-hidden="true">$</span>
+              <input id="c-inicial" type="number" min="0" step="500" value="10000" inputmode="numeric" />
+            </div>
+          </div>
+
+          <div class="ctl">
+            <label for="c-mensual">Aporte mensual</label>
+            <div class="ctl__money">
+              <span aria-hidden="true">$</span>
+              <input id="c-mensual" type="number" min="0" step="50" value="500" inputmode="numeric" />
+            </div>
+          </div>
+
+          <div class="ctl">
+            <label for="c-anios">Años invirtiendo <output id="o-anios" for="c-anios">25</output></label>
+            <input id="c-anios" type="range" min="1" max="40" step="1" value="25" />
+          </div>
+
+          <div class="ctl">
+            <label for="c-tasa">Rendimiento anual <output id="o-tasa" for="c-tasa">7%</output></label>
+            <input id="c-tasa" type="range" min="1" max="12" step="0.5" value="7" />
+            <div class="presets" role="group" aria-label="Escenarios de rendimiento">
+              <button type="button" class="preset" data-tasa="5">Conservador 5%</button>
+              <button type="button" class="preset preset--on" data-tasa="7">Histórico 7%</button>
+              <button type="button" class="preset" data-tasa="9">Optimista 9%</button>
+            </div>
+            <p class="ctl__hint muted">7% ≈ rendimiento real histórico del S&P 500 (descontando inflación).</p>
+          </div>
+        </section>
+
+        <!-- ══ Resultado ══ -->
+        <section class="calc-result" aria-label="Resultado de la simulación">
+          <!-- Número héroe -->
+          <div class="card hero-num">
+            <div class="hero-num__label muted">En <span id="r-anios">25</span> años tendrías</div>
+            <div class="hero-num__value" id="r-total">$0</div>
+            <div class="hero-num__split">
+              <span class="split split--ap"><i class="sw sw--ap" aria-hidden="true"></i>Aportado: <strong id="r-aportado">$0</strong></span>
+              <span class="split split--cr"><i class="sw sw--cr" aria-hidden="true"></i>Crecimiento: <strong id="r-interes">$0</strong></span>
+            </div>
+            <div class="hero-num__insight" id="r-insight"></div>
+          </div>
+
+          <!-- Gráfico -->
+          <div class="card chart-card">
+            <div class="chart-top">
+              <h2 class="chart-title">Tu dinero, año por año</h2>
+              <div class="legend" aria-hidden="true">
+                <span><i class="sw sw--ap"></i>Aportado</span>
+                <span><i class="sw sw--cr"></i>Crecimiento</span>
+              </div>
+            </div>
+            <div class="chart-wrap" id="chart-wrap">
+              <svg id="chart" viewBox="0 0 720 380" role="img" aria-label="Gráfico de área: dinero aportado y crecimiento por interés compuesto, año por año"></svg>
+              <div class="tip" id="tip" hidden></div>
+            </div>
+          </div>
+
+          <!-- Tabla (vista accesible de los mismos datos) -->
+          <details class="card table-card">
+            <summary>Ver tabla año por año</summary>
+            <div class="table-scroll">
+              <table id="tabla">
+                <thead>
+                  <tr><th scope="col">Año</th><th scope="col">Aportado</th><th scope="col">Crecimiento</th><th scope="col">Total</th></tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </details>
+        </section>
+      </div>
+
+      <!-- ══ CTA hacia la guía ══ -->
+      <div class="card calc-cta">
+        <div>
+          <h2>Los números son el "qué". La guía es el "cómo".</h2>
+          <p class="muted" style="margin:8px 0 0">
+            Ya viste lo que el interés compuesto puede hacer. La guía gratuita
+            <em>De cero a tu primer portafolio</em> te enseña a ponerlo a trabajar de verdad.
+          </p>
+        </div>
+        <a href="/#freebie" class="btn btn--amber btn--lg">Quiero la guía gratis →</a>
+      </div>
+
+      <p class="center muted calc-fine">
+        Esta calculadora es una simulación educativa con rendimiento constante — los mercados reales fluctúan.
+        No constituye asesoría de inversión.
+      </p>
+    </div>
+  </main>
+
+  <!-- FOOTER compacto -->
+  <footer class="footer">
+    <div class="wrap center" style="font-size:.85rem">
+      <p style="margin:0">© {new Date().getFullYear()} Flujo Compuesto · Contenido educativo, no asesoría de inversión · <a href="/" style="color:rgba(255,255,255,.8)">Inicio</a></p>
+    </div>
+  </footer>
+</Base>
+
+<style>
+  /* NAV (mismo estilo que la landing) */
+  .nav { position: sticky; top: 0; z-index: 50; background: rgba(250,247,241,.82); backdrop-filter: saturate(180%) blur(12px); border-bottom: 1px solid var(--line); }
+  .nav__inner { display: flex; align-items: center; gap: 24px; height: 68px; }
+  .brand { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-serif); font-weight: 700; font-size: 1.15rem; color: var(--ink); }
+  .nav__links { display: flex; gap: 26px; margin-left: auto; }
+  .nav__links a { color: var(--ink-soft); font-weight: 600; font-size: .95rem; }
+  .nav__cta { padding: 10px 20px; font-size: .95rem; }
+
+  .calc-page { padding: 56px 0 72px; }
+  .calc-head { max-width: 640px; margin: 0 auto 44px; }
+
+  /* Layout: controles + resultado */
+  .calc-grid { display: grid; grid-template-columns: 320px 1fr; gap: 22px; align-items: start; }
+
+  /* Controles */
+  .calc-controls { position: sticky; top: 92px; display: grid; gap: 24px; }
+  .ctl label { display: flex; justify-content: space-between; font-weight: 700; font-size: .95rem; margin-bottom: 8px; }
+  .ctl output { color: var(--green); font-variant-numeric: tabular-nums; }
+  .ctl__money { display: flex; align-items: center; gap: 8px; border: 1.5px solid var(--line); border-radius: 12px; padding: 0 14px; background: var(--cream); }
+  .ctl__money span { font-weight: 700; color: var(--muted); }
+  .ctl__money input { border: 0; background: transparent; width: 100%; padding: 13px 0; font-size: 1.05rem; font-weight: 700; font-family: var(--font-sans); color: var(--ink); font-variant-numeric: tabular-nums; }
+  .ctl__money input:focus { outline: none; }
+  .ctl__money:focus-within { border-color: var(--green); }
+  input[type="range"] { width: 100%; accent-color: var(--green); height: 32px; }
+  .presets { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+  .preset { font: inherit; font-size: .8rem; font-weight: 700; padding: 7px 12px; border-radius: 100px; border: 1.5px solid var(--line); background: #fff; color: var(--ink-soft); cursor: pointer; }
+  .preset--on { border-color: var(--green); background: var(--green-100); color: var(--green-deep); }
+  .ctl__hint { font-size: .8rem; margin: 10px 0 0; line-height: 1.45; }
+
+  /* Número héroe */
+  .calc-result { display: grid; gap: 22px; }
+  .hero-num { text-align: center; padding: 34px 28px; }
+  .hero-num__label { font-weight: 700; font-size: .9rem; letter-spacing: .05em; text-transform: uppercase; }
+  .hero-num__value { font-family: var(--font-serif); font-weight: 700; font-size: clamp(2.6rem, 6vw, 4rem); color: var(--green-deep); line-height: 1.1; margin: 6px 0 14px; font-variant-numeric: tabular-nums; }
+  .hero-num__split { display: flex; gap: 22px; justify-content: center; flex-wrap: wrap; font-size: .98rem; color: var(--ink-soft); }
+  .hero-num__split strong { font-variant-numeric: tabular-nums; color: var(--ink); }
+  .split { display: inline-flex; align-items: center; gap: 8px; }
+  .sw { width: 12px; height: 12px; border-radius: 4px; display: inline-block; }
+  .sw--ap { background: #C08A22; }
+  .sw--cr { background: #0E8C6B; }
+  .hero-num__insight { margin-top: 16px; font-size: .95rem; color: var(--green-deep); background: var(--green-100); border-radius: 100px; padding: 8px 18px; display: inline-block; }
+
+  /* Gráfico */
+  .chart-top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; margin-bottom: 6px; }
+  .chart-title { font-size: 1.05rem; font-family: var(--font-sans); font-weight: 700; }
+  .legend { display: flex; gap: 18px; font-size: .85rem; font-weight: 600; color: var(--ink-soft); }
+  .legend span { display: inline-flex; align-items: center; gap: 7px; }
+  .chart-wrap { position: relative; }
+  #chart { width: 100%; height: auto; display: block; }
+  .tip { position: absolute; pointer-events: none; background: #fff; border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow-lg); padding: 10px 14px; font-size: .82rem; line-height: 1.6; min-width: 150px; z-index: 5; }
+  .tip__year { font-weight: 800; margin-bottom: 2px; }
+  .tip strong { font-variant-numeric: tabular-nums; float: right; margin-left: 14px; }
+
+  /* Tabla */
+  .table-card summary { cursor: pointer; font-weight: 700; padding: 4px 0; }
+  .table-scroll { overflow-x: auto; margin-top: 14px; }
+  table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+  th, td { text-align: right; padding: 9px 12px; border-bottom: 1px solid var(--line); font-variant-numeric: tabular-nums; }
+  th:first-child, td:first-child { text-align: left; }
+  thead th { color: var(--muted); font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; }
+  tbody tr:last-child td { border-bottom: 0; font-weight: 800; background: var(--green-100); }
+
+  /* CTA final */
+  .calc-cta { display: flex; align-items: center; justify-content: space-between; gap: 28px; margin-top: 44px; border: 2px solid var(--amber); flex-wrap: wrap; }
+  .calc-cta h2 { font-size: 1.45rem; }
+  .calc-fine { font-size: .82rem; margin-top: 24px; }
+
+  .footer { background: var(--ink); color: rgba(255,255,255,.7); padding: 28px 0; margin-top: 40px; }
+
+  @media (max-width: 900px) {
+    .calc-grid { grid-template-columns: 1fr; }
+    .calc-controls { position: static; }
+    .nav__links { display: none; }
+  }
+</style>
+
+<script>
+  // ─── Calculadora de interés compuesto ───────────────────────────
+  // Serie anual: aportado acumulado y balance total (capitalización mensual).
+
+  const $ = (id: string) => document.getElementById(id) as HTMLElement;
+  const inInicial = $('c-inicial') as HTMLInputElement;
+  const inMensual = $('c-mensual') as HTMLInputElement;
+  const inAnios   = $('c-anios')   as HTMLInputElement;
+  const inTasa    = $('c-tasa')    as HTMLInputElement;
+
+  // Colores de serie validados para gráfico (croma/CVD/contraste OK)
+  const C_AP = '#C08A22';   // aportado (ámbar)
+  const C_CR = '#0E8C6B';   // crecimiento (verde)
+  const C_GRID = '#E7E1D6';
+  const C_MUTED = '#5B6B66';
+
+  const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-US');
+  const fmtK = (n: number) =>
+    n >= 1e6 ? '$' + (n / 1e6).toFixed(n >= 1e7 ? 0 : 1) + 'M'
+    : n >= 1e3 ? '$' + Math.round(n / 1e3) + 'k'
+    : '$' + Math.round(n);
+
+  interface Punto { anio: number; aportado: number; total: number; }
+
+  function simular(inicial: number, mensual: number, anios: number, tasaPct: number): Punto[] {
+    const rMes = Math.pow(1 + tasaPct / 100, 1 / 12) - 1; // tasa mensual equivalente
+    const serie: Punto[] = [{ anio: 0, aportado: inicial, total: inicial }];
+    let bal = inicial, ap = inicial;
+    for (let a = 1; a <= anios; a++) {
+      for (let m = 0; m < 12; m++) { bal = bal * (1 + rMes) + mensual; ap += mensual; }
+      serie.push({ anio: a, aportado: ap, total: bal });
+    }
+    return serie;
+  }
+
+  // ─── Render del gráfico (SVG, área apilada: aportado + crecimiento) ───
+  const svg = $('chart') as unknown as SVGSVGElement;
+  const tip = $('tip');
+  const W = 720, H = 380, PL = 64, PR = 18, PT = 18, PB = 40;
+  let serieActual: Punto[] = [];
+
+  function nice(max: number): number {
+    const p = Math.pow(10, Math.floor(Math.log10(max)));
+    for (const m of [1, 1.2, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10]) if (max <= m * p) return m * p;
+    return 10 * p;
+  }
+
+  function render() {
+    const inicial = Math.max(0, +inInicial.value || 0);
+    const mensual = Math.max(0, +inMensual.value || 0);
+    const anios   = +inAnios.value;
+    const tasa    = +inTasa.value;
+
+    ($('o-anios') as HTMLOutputElement).value = String(anios);
+    ($('o-tasa') as HTMLOutputElement).value = tasa + '%';
+
+    const serie = simular(inicial, mensual, anios, tasa);
+    serieActual = serie;
+    const fin = serie[serie.length - 1]!;
+    const interes = fin.total - fin.aportado;
+
+    // Número héroe
+    $('r-anios').textContent = String(anios);
+    $('r-total').textContent = fmt(fin.total);
+    $('r-aportado').textContent = fmt(fin.aportado);
+    $('r-interes').textContent = fmt(interes);
+
+    // Insight: año en que el crecimiento supera lo aportado
+    const cruce = serie.find(p => p.total - p.aportado > p.aportado);
+    $('r-insight').textContent = cruce
+      ? `⚡ A partir del año ${cruce.anio}, tu dinero genera más de lo que tú has puesto.`
+      : interes > 0
+        ? `🌱 El crecimiento ya aporta ${Math.round((interes / fin.total) * 100)}% de tu total.`
+        : '';
+
+    // Escalas
+    const yMax = nice(fin.total * 1.05);
+    const x = (a: number) => PL + (a / anios) * (W - PL - PR);
+    const y = (v: number) => PT + (1 - v / yMax) * (H - PT - PB);
+
+    let g = '';
+
+    // Grid horizontal (recesivo) + etiquetas del eje Y
+    const nTicks = 4;
+    for (let i = 0; i <= nTicks; i++) {
+      const v = (yMax / nTicks) * i, yy = y(v);
+      g += `<line x1="${PL}" y1="${yy}" x2="${W - PR}" y2="${yy}" stroke="${C_GRID}" stroke-width="1"/>`;
+      g += `<text x="${PL - 8}" y="${yy + 4}" text-anchor="end" font-size="11" fill="${C_MUTED}">${fmtK(v)}</text>`;
+    }
+    // Eje X: años
+    const stepX = anios <= 10 ? 2 : anios <= 20 ? 5 : 10;
+    for (let a = 0; a <= anios; a += stepX) {
+      g += `<text x="${x(a)}" y="${H - PB + 22}" text-anchor="middle" font-size="11" fill="${C_MUTED}">${a === 0 ? 'hoy' : a}</text>`;
+    }
+
+    const path = (fn: (p: Punto) => number) =>
+      serie.map((p, i) => `${i ? 'L' : 'M'}${x(p.anio).toFixed(1)} ${fn(p).toFixed(1)}`).join(' ');
+
+    // Banda inferior: aportado (ámbar) — con separador de 2px hacia la banda superior
+    const base = y(0);
+    g += `<path d="${path(p => y(p.aportado))} L${x(anios)} ${base} L${x(0)} ${base} Z" fill="${C_AP}" fill-opacity="0.42"/>`;
+    // Banda superior: crecimiento (verde), apilada sobre aportado
+    g += `<path d="${path(p => y(p.total))} L${serie.slice().reverse().map(p => `L${x(p.anio).toFixed(1)} ${y(p.aportado).toFixed(1)}`).join(' ').slice(1)} Z" fill="${C_CR}" fill-opacity="0.38"/>`;
+    // Separador (gap visual entre bandas) + líneas de borde 2px
+    g += `<path d="${path(p => y(p.aportado))}" fill="none" stroke="#FFFFFF" stroke-width="4"/>`;
+    g += `<path d="${path(p => y(p.aportado))}" fill="none" stroke="${C_AP}" stroke-width="2"/>`;
+    g += `<path d="${path(p => y(p.total))}" fill="none" stroke="${C_CR}" stroke-width="2.5"/>`;
+    // Punto final + etiquetas directas (identidad no depende solo del color)
+    g += `<circle cx="${x(anios)}" cy="${y(fin.total)}" r="5" fill="${C_CR}"/>`;
+    const yLblTotal = Math.max(y(fin.total), PT + 10);
+    g += `<text x="${W - PR - 6}" y="${yLblTotal - 10}" text-anchor="end" font-size="12" font-weight="700" fill="#0B4E3F">Total ${fmtK(fin.total)}</text>`;
+    g += `<text x="${W - PR - 6}" y="${Math.min(y(fin.aportado) + 18, base - 6)}" text-anchor="end" font-size="12" font-weight="700" fill="#8a6516">Aportado ${fmtK(fin.aportado)}</text>`;
+
+    // Capa de hover
+    g += `<line id="xhair" x1="0" y1="${PT}" x2="0" y2="${base}" stroke="${C_MUTED}" stroke-width="1" stroke-dasharray="3 3" visibility="hidden"/>`;
+    g += `<rect id="hit" x="${PL}" y="${PT}" width="${W - PL - PR}" height="${H - PT - PB}" fill="transparent"/>`;
+
+    svg.innerHTML = g;
+    wireHover(x, anios);
+    renderTabla(serie);
+  }
+
+  // ─── Tooltip / crosshair ───
+  function wireHover(x: (a: number) => number, anios: number) {
+    const hit = svg.querySelector('#hit') as SVGRectElement;
+    const xhair = svg.querySelector('#xhair') as SVGLineElement;
+    const wrap = $('chart-wrap');
+
+    hit.addEventListener('pointermove', (e) => {
+      const r = svg.getBoundingClientRect();
+      const sx = ((e.clientX - r.left) / r.width) * W;
+      const a = Math.round(((sx - PL) / (W - PL - PR)) * anios);
+      const p = serieActual[Math.max(0, Math.min(anios, a))];
+      if (!p) return;
+      const px = x(p.anio);
+      xhair.setAttribute('x1', String(px));
+      xhair.setAttribute('x2', String(px));
+      xhair.setAttribute('visibility', 'visible');
+      const interes = p.total - p.aportado;
+      tip.innerHTML = `<div class="tip__year">${p.anio === 0 ? 'Hoy' : 'Año ' + p.anio}</div>` +
+        `<div>Aportado <strong>${fmt(p.aportado)}</strong></div>` +
+        `<div>Crecimiento <strong>${fmt(interes)}</strong></div>` +
+        `<div>Total <strong>${fmt(p.total)}</strong></div>`;
+      tip.hidden = false;
+      const wr = wrap.getBoundingClientRect();
+      const tw = tip.offsetWidth;
+      let left = ((px / W) * wr.width) + 14;
+      if (left + tw > wr.width - 8) left = ((px / W) * wr.width) - tw - 14;
+      tip.style.left = left + 'px';
+      tip.style.top = Math.max(8, e.clientY - wr.top - 30) + 'px';
+    });
+    hit.addEventListener('pointerleave', () => {
+      tip.hidden = true;
+      xhair.setAttribute('visibility', 'hidden');
+    });
+  }
+
+  // ─── Tabla año por año (vista accesible) ───
+  function renderTabla(serie: Punto[]) {
+    const tbody = document.querySelector('#tabla tbody')!;
+    const paso = serie.length > 26 ? 2 : 1;
+    let rows = '';
+    for (let i = 1; i < serie.length; i += paso) {
+      const p = serie[i]!;
+      if (i + paso >= serie.length && i !== serie.length - 1) continue; // evita duplicar el final
+      rows += `<tr><td>Año ${p.anio}</td><td>${fmt(p.aportado)}</td><td>${fmt(p.total - p.aportado)}</td><td>${fmt(p.total)}</td></tr>`;
+    }
+    const f = serie[serie.length - 1]!;
+    if (paso > 1) rows += `<tr><td>Año ${f.anio}</td><td>${fmt(f.aportado)}</td><td>${fmt(f.total - f.aportado)}</td><td>${fmt(f.total)}</td></tr>`;
+    tbody.innerHTML = rows;
+  }
+
+  // ─── Wiring de controles ───
+  [inInicial, inMensual, inAnios, inTasa].forEach(el => el.addEventListener('input', render));
+  document.querySelectorAll<HTMLButtonElement>('.preset').forEach(btn => {
+    btn.addEventListener('click', () => {
+      inTasa.value = btn.dataset.tasa!;
+      document.querySelectorAll('.preset').forEach(b => b.classList.remove('preset--on'));
+      btn.classList.add('preset--on');
+      render();
+    });
+  });
+  // Al mover el slider manualmente, des-selecciona presets que ya no coinciden
+  inTasa.addEventListener('input', () => {
+    document.querySelectorAll<HTMLButtonElement>('.preset').forEach(b =>
+      b.classList.toggle('preset--on', b.dataset.tasa === inTasa.value));
+  });
+
+  render();
+</script>

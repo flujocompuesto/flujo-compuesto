@@ -223,7 +223,7 @@ const faqSchema = {
         </div>
         <div class="freebie__form">
           <!-- Placeholder: conectaremos a ConvertKit/Beehiiv/Resend en el siguiente paso -->
-          <form class="lead-form" name="lead-magnet" onsubmit="return false;">
+          <form class="lead-form" name="lead-magnet" data-subscribe data-source="landing-freebie">
             <label for="nombre">Nombre</label>
             <input id="nombre" name="nombre" type="text" placeholder="Tu nombre" autocomplete="given-name" required />
             <label for="email">Correo</label>
@@ -327,6 +327,8 @@ const faqSchema = {
       </div>
     </div>
   </footer>
+
+  <script>import '../scripts/subscribe.js';</script>
 </Base>
 
 <style>

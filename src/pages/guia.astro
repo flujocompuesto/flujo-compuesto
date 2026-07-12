@@ -175,7 +175,7 @@ const articleSchema = {
           <h2>Llévate esta guía en PDF + una plantilla de arranque</h2>
           <p class="muted">Déjame tu correo y te envío la versión descargable de esta guía, más una plantilla simple para calcular tu tasa de ahorro y tu primer plan. Gratis.</p>
         </div>
-        <form class="g-form" name="guia-optin" onsubmit="return false;">
+        <form class="g-form" name="guia-optin" data-subscribe data-source="guia-optin">
           <label for="g-nombre">Nombre</label>
           <input id="g-nombre" type="text" placeholder="Tu nombre" autocomplete="given-name" required />
           <label for="g-email">Correo</label>
@@ -216,6 +216,8 @@ const articleSchema = {
       <p style="margin:0">© {new Date().getFullYear()} Flujo Compuesto · Contenido educativo, no asesoría de inversión · <a href="/" style="color:rgba(255,255,255,.8)">Inicio</a> · <a href="/sobre-mi" style="color:rgba(255,255,255,.8)">Sobre mí</a></p>
     </div>
   </footer>
+
+  <script>import '../scripts/subscribe.js';</script>
 </Base>
 
 <style>

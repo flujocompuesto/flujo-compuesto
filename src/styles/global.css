@@ -111,6 +111,14 @@ mark { background: var(--green-100); color: inherit; padding: 0 .18em; border-ra
 .pill { display:inline-flex; align-items:center; gap:8px; font-size:.85rem; font-weight:600; color:var(--muted); }
 .divider { height:1px; background:var(--line); border:0; margin:0; }
 
+/* Estados de suscripción (formularios de captura) */
+.subscribe-msg { font-size: .88rem; margin: 12px 0 0; text-align: center; font-weight: 600; }
+.subscribe-msg--err { color: var(--danger); }
+.subscribe-ok { text-align: center; padding: 8px 0; }
+.subscribe-ok__ic { width: 48px; height: 48px; margin: 0 auto 12px; border-radius: 50%; background: var(--green-100); color: var(--green-deep); font-size: 1.6rem; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+.subscribe-ok__title { font-weight: 800; font-size: 1.15rem; color: var(--ink); }
+.subscribe-ok__sub { font-size: .92rem; color: var(--muted); margin-top: 6px; }
+
 @media (max-width: 900px) {
   .grid-3 { grid-template-columns: 1fr; }
   .grid-2 { grid-template-columns: 1fr; }

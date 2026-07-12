@@ -1,0 +1,80 @@
+---
+import '../styles/global.css';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  /** Ruta canónica relativa, ej. "/" o "/guia" */
+  path?: string;
+  /** JSON-LD adicional específico de la página */
+  schema?: Record<string, unknown> | Record<string, unknown>[];
+  ogType?: string;
+}
+
+const {
+  title = 'Flujo Compuesto — De cero a tu primer portafolio',
+  description = 'Educación financiera e inversión de largo plazo, con filosofía de bajo costo (Boglehead / Ben Felix). Aprende a poner tu dinero a trabajar y construye tu primer portafolio, paso a paso.',
+  path = '/',
+  schema,
+  ogType = 'website',
+} = Astro.props;
+
+const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://flujocompuesto.com';
+const canonical = site + path;
+const ogImage = site + '/og-default.png';
+
+// Schema base: Organización + Sitio web (identidad para SEO y AI-search)
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Flujo Compuesto',
+  url: site,
+  description,
+  sameAs: [],
+};
+const siteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Flujo Compuesto',
+  url: site,
+  inLanguage: 'es',
+};
+const schemas = [orgSchema, siteSchema, ...(Array.isArray(schema) ? schema : schema ? [schema] : [])];
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content="Flujo Compuesto" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="es_LA" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <meta name="theme-color" content="#10715C" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <!-- JSON-LD: identidad para buscadores y motores de IA -->
+    {schemas.map((s) => (
+      <script type="application/ld+json" set:html={JSON.stringify(s)} />
+    ))}
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

@@ -12,6 +12,7 @@ import Callout from '../../components/aprende/Callout.astro';
 import Formula from '../../components/aprende/Formula.astro';
 import Compare from '../../components/aprende/Compare.astro';
 import Col from '../../components/aprende/Col.astro';
+import GrowthBars from '../../components/aprende/GrowthBars.astro';
 
 El interés compuesto ocurre cuando los rendimientos de tu inversión **también empiezan a generar rendimientos**. No solo crece tu dinero original — crecen las ganancias de tus ganancias. Es, literalmente, dinero creando más dinero sin que hagas nada.
 
@@ -27,24 +28,32 @@ Imagina que inviertes **$1,000** una sola vez, al 7% anual, y no agregas nada m�
 
 Lo mágico no es el primer año — es lo que pasa cuando dejas que la bola de nieve ruede décadas.
 
+## Míralo en una gráfica
+
+Aquí está la magia del compuesto de forma visual. Si inviertes **$200 al mes al 7% anual**, mira cómo la parte verde (lo que genera el interés compuesto) va superando poco a poco a la azul (lo que tú aportaste):
+
+<GrowthBars monthly={200} ratePct={7} caption="Invirtiendo $200/mes al 7% anual — año por año" />
+
+Al inicio casi todo es aporte tuyo. Pero con el tiempo, el crecimiento toma vuelo y termina siendo la mayor parte de tu dinero. Eso es el interés compuesto trabajando por ti.
+
 ## El tiempo es tu mayor activo
 
 Aquí está la lección más importante, y la más contraintuitiva: **empezar temprano vale más que empezar con más.** Compara a dos personas que invierten lo mismo, $200/mes al 7%:
 
 <Compare>
-  <Col title="Ana — empieza a los 22" tone="green">
+  <Col title="Sofía — empieza a los 22" tone="green">
     Invierte 38 años. Aporta ~$91,000 en total.
 
     **A los 60 tiene ~$525,000.**
   </Col>
-  <Col title="Carlos — empieza a los 40" tone="red">
+  <Col title="Diego — empieza a los 40" tone="red">
     Invierte 20 años. Aporta ~$48,000 en total.
 
     **A los 60 tiene ~$104,000.**
   </Col>
 </Compare>
 
-Ana aportó apenas el doble de dinero que Carlos, pero terminó con **cinco veces más**. La diferencia no fue el monto — fueron los **18 años extra** que su dinero tuvo para componerse. Ese tiempo es un capital que nadie te puede vender ni devolver.
+Sofía aportó apenas el doble de dinero que Diego, pero terminó con **cinco veces más**. La diferencia no fue el monto — fueron los **18 años extra** que su dinero tuvo para componerse. Ese tiempo es un capital que nadie te puede vender ni devolver.
 
 ## Lo que cuesta esperar "un año más"
 

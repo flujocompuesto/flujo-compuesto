@@ -1,0 +1,101 @@
+---
+// Gráfica de barras apiladas: aportado (base) + crecimiento compuesto (arriba).
+// Estática (SVG calculado en build). Colores de marca validados.
+interface Props {
+  monthly?: number;      // aporte mensual
+  initial?: number;      // monto inicial
+  ratePct?: number;      // rendimiento anual %
+  years?: number[];      // años a mostrar
+  caption?: string;
+}
+const {
+  monthly = 200,
+  initial = 0,
+  ratePct = 7,
+  years = [1, 5, 10, 15, 20, 25, 30],
+  caption = `Aporte de $${monthly}/mes al ${ratePct}% anual`,
+} = Astro.props;
+
+const rMonthly = Math.pow(1 + ratePct / 100, 1 / 12) - 1;
+function balanceAt(year: number) {
+  const n = year * 12;
+  const fvInitial = initial * Math.pow(1 + rMonthly, n);
+  const fvContrib = rMonthly > 0 ? monthly * ((Math.pow(1 + rMonthly, n) - 1) / rMonthly) : monthly * n;
+  return fvInitial + fvContrib;
+}
+const data = years.map((y) => {
+  const aportado = initial + monthly * 12 * y;
+  const total = balanceAt(y);
+  return { y, aportado, crecimiento: Math.max(0, total - aportado), total };
+});
+
+const C_AP = '#4A55A2';   // aportado (índigo)
+const C_CR = '#169A4E';   // crecimiento (verde)
+const C_GRID = '#E2E5E9';
+const C_MUTED = '#64707F';
+const C_INK = '#24344B';
+
+const W = 720, H = 420, PL = 58, PR = 16, PT = 40, PB = 40;
+const plotW = W - PL - PR, plotH = H - PT - PB;
+const maxTotal = Math.max(...data.map((d) => d.total));
+function nice(m: number) {
+  const p = Math.pow(10, Math.floor(Math.log10(m)));
+  for (const k of [1, 1.2, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10]) if (m <= k * p) return k * p;
+  return 10 * p;
+}
+const yMax = nice(maxTotal * 1.08);
+const fmtK = (n: number) => (n >= 1e6 ? '$' + (n / 1e6).toFixed(n >= 1e7 ? 0 : 1) + 'M' : n >= 1e3 ? '$' + Math.round(n / 1e3) + 'k' : '$' + Math.round(n));
+
+const band = plotW / data.length;
+const barW = Math.min(56, band * 0.62);
+const y = (v: number) => PT + (1 - v / yMax) * plotH;
+const ticks = 4;
+---
+
+<figure class="gb">
+  <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`Gráfica: ${caption}. Barras apiladas de dinero aportado y crecimiento por interés compuesto.`}>
+    <!-- Leyenda -->
+    <rect x={PL} y="12" width="12" height="12" rx="3" fill={C_AP} />
+    <text x={PL + 18} y="22" font-size="12.5" fill={C_INK} font-weight="600">Lo que aportaste</text>
+    <rect x={PL + 150} y="12" width="12" height="12" rx="3" fill={C_CR} />
+    <text x={PL + 168} y="22" font-size="12.5" fill={C_INK} font-weight="600">Lo que generó el compuesto</text>
+
+    <!-- Grid + eje Y -->
+    {Array.from({ length: ticks + 1 }).map((_, i) => {
+      const v = (yMax / ticks) * i;
+      const yy = y(v);
+      return (
+        <g>
+          <line x1={PL} y1={yy} x2={W - PR} y2={yy} stroke={C_GRID} stroke-width="1" />
+          <text x={PL - 8} y={yy + 4} text-anchor="end" font-size="11" fill={C_MUTED}>{fmtK(v)}</text>
+        </g>
+      );
+    })}
+
+    <!-- Barras apiladas -->
+    {data.map((d, i) => {
+      const cx = PL + band * i + band / 2;
+      const x = cx - barW / 2;
+      const yAp = y(d.aportado);
+      const yTot = y(d.total);
+      const hAp = y(0) - yAp;
+      const hCr = yAp - yTot;
+      return (
+        <g>
+          <rect x={x} y={yAp} width={barW} height={Math.max(0, hAp)} fill={C_AP} rx="2" />
+          <rect x={x} y={yTot} width={barW} height={Math.max(0, hCr - 2)} fill={C_CR} rx="2" />
+          <text x={cx} y={yTot - 7} text-anchor="middle" font-size="11.5" font-weight="700" fill={C_INK}>{fmtK(d.total)}</text>
+          <text x={cx} y={H - PB + 20} text-anchor="middle" font-size="11.5" fill={C_MUTED}>{d.y === 1 ? 'Año 1' : `${d.y}`}</text>
+        </g>
+      );
+    })}
+    <line x1={PL} y1={y(0)} x2={W - PR} y2={y(0)} stroke={C_GRID} stroke-width="1.5" />
+  </svg>
+  <figcaption>{caption}</figcaption>
+</figure>
+
+<style>
+  .gb { margin: 28px 0; }
+  .gb svg { width: 100%; height: auto; display: block; }
+  .gb figcaption { text-align: center; font-size: .88rem; color: var(--muted); margin-top: 8px; }
+</style>

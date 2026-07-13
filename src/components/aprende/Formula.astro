@@ -1,0 +1,18 @@
+---
+// Fórmula o dato destacado centrado.
+interface Props { label?: string; eq: string; }
+const { label, eq } = Astro.props;
+---
+<div class="formula">
+  {label && <div class="formula__label">{label}</div>}
+  <div class="formula__eq">{eq}</div>
+  <div class="formula__note"><slot /></div>
+</div>
+
+<style>
+  .formula { text-align: center; background: var(--gray-100); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 24px; margin: 28px 0; }
+  .formula__label { font-size: .76rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: 10px; }
+  .formula__eq { font-size: 1.5rem; font-weight: 800; color: var(--green-deep); letter-spacing: -0.01em; }
+  .formula__note { font-size: .96rem; color: var(--ink-soft); margin-top: 8px; }
+  .formula__note :global(p) { margin: 0; }
+</style>

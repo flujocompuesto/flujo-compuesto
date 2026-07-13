@@ -1,0 +1,21 @@
+---
+// Columna dentro de <Compare>. tone: 'green' | 'red' | 'neutral'
+interface Props { title: string; tone?: 'green' | 'red' | 'neutral'; }
+const { title, tone = 'neutral' } = Astro.props;
+---
+<div class={`col col--${tone}`}>
+  <div class="col__title">{title}</div>
+  <div class="col__body"><slot /></div>
+</div>
+
+<style>
+  .col { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
+  .col--green { border-top: 3px solid var(--green); }
+  .col--red { border-top: 3px solid var(--danger); }
+  .col--neutral { border-top: 3px solid var(--indigo); }
+  .col__title { font-weight: 800; font-size: 1.08rem; margin-bottom: 8px; }
+  .col__body { font-size: .98rem; line-height: 1.6; color: var(--ink-soft); }
+  .col__body :global(p) { margin: 0 0 8px; }
+  .col__body :global(p:last-child) { margin-bottom: 0; }
+  .col__body :global(ul) { margin: 0; padding-left: 18px; }
+</style>

@@ -1,0 +1,8 @@
+---
+// Rejilla de 2 columnas para comparativas (usa <Col> dentro).
+---
+<div class="compare"><slot /></div>
+<style>
+  .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 28px 0; }
+  @media (max-width: 640px) { .compare { grid-template-columns: 1fr; } }
+</style>

@@ -8,7 +8,7 @@ const articleSchema = {
   '@type': 'Article',
   headline: 'De cero a tu primer portafolio: la guía de arranque',
   description:
-    'Guía práctica para empezar a invertir desde Latinoamérica: la mentalidad, los 4 principios, qué es un ETF, los errores que te frenan y tu primer paso concreto.',
+    'Guía práctica para empezar a invertir desde Latinoamérica: la mentalidad de patrimonio, el interés compuesto, cómo gastar con intención, qué es un ETF y tu primer paso concreto.',
   inLanguage: 'es',
   author: {
     '@type': 'Person',
@@ -23,7 +23,7 @@ const articleSchema = {
 
 <Base
   title="De cero a tu primer portafolio: la guía de arranque — Flujo Compuesto"
-  description="La guía gratuita para empezar a invertir desde Latinoamérica sin miedo: la mentalidad, los 4 principios de bajo costo, qué es un ETF, los 3 errores que te frenan y tu primer paso concreto hoy."
+  description="La guía gratuita para empezar a invertir desde Latinoamérica sin miedo: la mentalidad de patrimonio, el interés compuesto, cómo gastar con intención, qué es un ETF y tu primer paso concreto hoy."
   path="/guia"
   ogType="article"
   schema={articleSchema}
@@ -53,7 +53,7 @@ const articleSchema = {
     <div class="wrap g-narrow">
       <!-- ── Encabezado ── -->
       <header class="g-head">
-        <span class="eyebrow">Guía gratuita · Lectura de 12 min</span>
+        <span class="eyebrow">Guía gratuita · Lectura de 15 min</span>
         <h1>De cero a tu primer portafolio</h1>
         <p class="lead">La guía de arranque para empezar a invertir desde Latinoamérica — sin jerga, sin adivinar el mercado y sin promesas de hacerte rico rápido.</p>
         <div class="g-byline">
@@ -67,105 +67,150 @@ const articleSchema = {
       <div class="g-toc card">
         <div class="g-toc__title">Lo que vas a aprender</div>
         <ul>
-          <li><a href="#mentalidad">El cambio de mentalidad que lo cambia todo</a></li>
-          <li><a href="#principios">Los 4 principios para invertir sin miedo</a></li>
-          <li><a href="#etf">Qué es un ETF (sin jerga)</a></li>
-          <li><a href="#compuesto">El interés compuesto, con tus números</a></li>
-          <li><a href="#errores">Los 3 errores que te frenan</a></li>
-          <li><a href="#primer-paso">Tu primer paso concreto, hoy</a></li>
+          <li><a href="#mentalidad">Por qué la riqueza no es cuánto ganas</a></li>
+          <li><a href="#compuesto">El interés compuesto y la pregunta que lo cambia todo</a></li>
+          <li><a href="#gastar">Cómo gastar con intención (sin culpa)</a></li>
+          <li><a href="#inflacion">La inflación: por qué el dinero quieto pierde</a></li>
+          <li><a href="#invertir">Invertir sin jerga: acciones y ETFs</a></li>
+          <li><a href="#errores">Los errores que te frenan</a></li>
+          <li><a href="#primer-paso">Tu primer paso, en el orden correcto</a></li>
         </ul>
       </div>
 
-      <!-- ── 1. Bienvenida ── -->
+      <!-- ── Bienvenida ── -->
       <section class="g-sec">
-        <p>Si ganas bien pero tu dinero lleva años dormido en el banco, esta guía es para ti. No necesitas ser experto, ni tener mucho capital, ni dedicarle horas. Solo necesitas entender <strong>cómo empezar</strong> — y dar el primer paso.</p>
-        <p>Soy ingeniero, no financiero. Durante 13 años traté mis finanzas como trato mi trabajo de aseguramiento de calidad: como un sistema con datos, reglas y mejora continua. Esto no es teoría de gurú; es el método que uso con mi propio dinero, resumido para que empieces hoy.</p>
+        <p>Si ganas bien pero tu dinero lleva años dormido en el banco, esta guía es para ti. No necesitas ser experto, ni tener mucho capital, ni dedicarle horas. Solo necesitas entender <strong>cómo empieza</strong> — y dar el primer paso.</p>
+        <p>Soy ingeniero, no financiero. Durante 13 años traté mis finanzas como trato mi trabajo de aseguramiento de calidad: como un sistema con datos, reglas y mejora continua. Nada de intuición de gurú. Esto es el método que uso con mi propio dinero, resumido para que empieces hoy.</p>
       </section>
 
-      <!-- ── 2. Mentalidad ── -->
+      <!-- ── 1. Mentalidad: Patrimonio ── -->
       <section id="mentalidad" class="g-sec">
-        <h2>1. El cambio de mentalidad que lo cambia todo</h2>
-        <p>La mayoría cree que la clave es <em>ganar más</em>. No lo es. La clave es la diferencia entre dos cosas que solemos confundir:</p>
+        <h2>1. La riqueza no es cuánto ganas</h2>
+        <p>El error más caro en finanzas personales es confundir <strong>ingreso alto</strong> con <strong>riqueza</strong>. No son lo mismo:</p>
         <div class="g-two">
           <div class="g-box g-box--red">
-            <strong>Ingresos</strong>
-            <p class="muted">Lo que ganas trabajando. Si dejas de trabajar, se detiene. Cambias tiempo por dinero.</p>
+            <strong>⚙️ Ingresos</strong>
+            <p class="muted">Lo que ganas trabajando. Depende de que <em>tú</em> trabajes. Si te detienes, se detiene. Cambias tiempo por dinero.</p>
           </div>
           <div class="g-box g-box--green">
-            <strong>Patrimonio</strong>
+            <strong>🌱 Patrimonio</strong>
             <p class="muted">Lo que tu dinero genera por ti. Trabaja 24/7, incluso mientras duermes. Cambia capital por dinero.</p>
           </div>
         </div>
-        <p>Tu objetivo no es ganar más — es <strong>acumular activos que generen ingresos</strong>. Y hay dos enemigos silenciosos que te lo impiden si no actúas:</p>
-        <ul class="g-list">
-          <li><strong>La inflación.</strong> El dinero quieto en el banco pierde poder de compra cada año. Es una comisión invisible que pagas por no invertir.</li>
-          <li><strong>El tiempo perdido.</strong> El mayor activo de un inversionista no es el dinero — es el tiempo. Cada año que esperas, el interés compuesto tiene menos tiempo para trabajar.</li>
-        </ul>
-        <blockquote class="g-quote">El mejor momento para empezar a invertir fue hace 10 años. El segundo mejor momento es hoy.</blockquote>
-      </section>
-
-      <!-- ── 3. Principios ── -->
-      <section id="principios" class="g-sec">
-        <h2>2. Los 4 principios para invertir sin miedo</h2>
-        <p>No vamos a intentar ganarle al mercado. Vamos a <strong>capturar su rendimiento</strong> con constancia y bajo costo — el enfoque que la evidencia respalda para el inversionista promedio (la filosofía de los Bogleheads y de divulgadores como Ben Felix).</p>
-        <ol class="g-principios">
-          <li><span>01</span><div><strong>Largo plazo.</strong> El tiempo <em>en</em> el mercado le gana a intentar adivinar el momento de entrada.</div></li>
-          <li><span>02</span><div><strong>Bajo costo.</strong> Cada punto de comisión se come tu interés compuesto. Menos costo, más para ti.</div></li>
-          <li><span>03</span><div><strong>Diversificación.</strong> No apuestas a una empresa; con un solo fondo indexado te vuelves dueño de miles.</div></li>
-          <li><span>04</span><div><strong>Constancia.</strong> Inviertes con método, sin importar el titular del día. Los hábitos vencen a la suerte.</div></li>
-        </ol>
-      </section>
-
-      <!-- ── 4. ETF ── -->
-      <section id="etf" class="g-sec">
-        <h2>3. Qué es un ETF (sin jerga)</h2>
-        <p>Imagina que en vez de comprar acciones de una sola empresa —apostando a que <em>esa</em> sea la ganadora— pudieras comprar un pedacito de las 500 empresas más grandes de Estados Unidos con una sola compra. Eso es un <strong>ETF indexado</strong>.</p>
-        <p>Un ETF (fondo cotizado en bolsa) es una canasta de muchas acciones que se compra y vende como si fuera una sola. Los más conocidos:</p>
+        <div class="g-formula">
+          <div class="g-formula__label">La fórmula de la riqueza</div>
+          <div class="g-formula__eq">Riqueza = Patrimonio × Rendimiento</div>
+          <p class="muted">No importa cuánto ganes. Importa cuánto <strong>conservas</strong> y cuánto <strong>haces crecer</strong>.</p>
+        </div>
+        <p>Compara dos personas de 45 años:</p>
         <div class="g-two">
-          <div class="g-box">
-            <strong>VOO</strong>
-            <p class="muted">Sigue al S&P 500 — las 500 empresas más grandes de EE.UU. (Apple, Microsoft, Amazon…). Diversificación instantánea.</p>
+          <div class="g-box g-box--red">
+            <strong>El profesional atrapado</strong>
+            <p class="muted">Gana $15,000/mes, gasta $14,500. Ahorra $500. Patrimonio: pequeño. <strong>Si pierde su trabajo → crisis en 6 meses.</strong></p>
           </div>
-          <div class="g-box">
-            <strong>QQQ</strong>
-            <p class="muted">Sigue al Nasdaq-100 — las 100 mayores empresas no financieras, con fuerte peso en tecnología.</p>
+          <div class="g-box g-box--green">
+            <strong>El constructor de riqueza</strong>
+            <p class="muted">Gana $5,000/mes, gasta $3,000, invierte $2,000 desde joven. Patrimonio: sólido. <strong>Si pierde su trabajo → no cambia nada.</strong></p>
           </div>
         </div>
-        <p>¿Por qué importa? Porque comprar un índice de bajo costo es, estadísticamente, más seguro y más rentable a largo plazo que intentar escoger acciones ganadoras una por una. <strong>No necesitas acertar — necesitas participar.</strong></p>
+        <blockquote class="g-quote">Tu objetivo no es ganar más. Es acumular activos que generen ingresos hasta que superen tus gastos. En ese momento, trabajar se vuelve opcional.</blockquote>
       </section>
 
-      <!-- ── 5. Compuesto + calculadora ── -->
+      <!-- ── 2. Interés compuesto ── -->
       <section id="compuesto" class="g-sec">
-        <h2>4. El interés compuesto, con tus propios números</h2>
-        <p>El interés compuesto es cuando tus ganancias empiezan a generar ganancias. Es dinero creando más dinero, sin que hagas nada. Y su efecto en el tiempo es difícil de creer hasta que lo ves con tus números.</p>
+        <h2>2. El interés compuesto y la pregunta que lo cambia todo</h2>
+        <p>El interés compuesto ocurre cuando tus ganancias también generan ganancias. No solo crece tu dinero original — crecen las ganancias de tus ganancias. Es dinero creando más dinero, sin que hagas nada. Y su efecto en el tiempo es difícil de creer.</p>
+        <p>Aquí está la trampa mental que quiero romperte. La gente pregunta <em>"¿puedo permitirme invertir?"</em>. La pregunta correcta es la contraria:</p>
+        <div class="g-highlight">
+          <div class="g-highlight__q">¿Puedo permitirme <u>NO</u> invertir?</div>
+          <p>Netflix y Spotify cuestan juntos ~$18/mes. Si los pagaras 50 años, gastarías <strong>$10,800</strong> — casi no lo notarías. Pero si invirtieras esos mismos $18/mes al 10% anual, en 50 años tendrías <strong>~$300,000</strong>. Cada año que esperas es una pérdida <strong>exponencial</strong>, no lineal.</p>
+        </div>
+        <p>Por eso empezar temprano vale más que empezar con más. Dos personas invierten $200/mes al 7%:</p>
+        <div class="g-two">
+          <div class="g-box">
+            <strong>Ana — empieza a los 22</strong>
+            <p class="muted">Aporta 38 años (~$91,000 en total). A los 60: <strong>~$525,000</strong>.</p>
+          </div>
+          <div class="g-box">
+            <strong>Carlos — empieza a los 40</strong>
+            <p class="muted">Aporta 20 años (~$48,000 en total). A los 60: <strong>~$104,000</strong>.</p>
+          </div>
+        </div>
+        <p>Ana aportó apenas el doble que Carlos, pero terminó con <strong>5 veces más</strong>. La diferencia no fue el monto — fue el <strong>tiempo</strong>. Ese es el activo que nadie te puede comprar ni devolver.</p>
         <div class="g-cta-box">
           <div>
-            <strong>Haz la prueba tú mismo</strong>
+            <strong>Haz la prueba con tus números</strong>
             <p class="muted" style="margin:4px 0 0">Ingresa tu monto, tu aporte mensual y los años. Mira cuánto puede crecer.</p>
           </div>
           <a href="/calculadora" class="btn btn--primary">Abrir la calculadora →</a>
         </div>
       </section>
 
+      <!-- ── 3. Gastar con intención ── -->
+      <section id="gastar" class="g-sec">
+        <h2>3. Gastar con intención (sin culpa)</h2>
+        <p>Un presupuesto no es una lista de restricciones para sufrir — es un <strong>plan para gastar tu dinero en lo que de verdad te importa</strong>. Y para eso ayuda ver que todo gasto cae en uno de tres tipos:</p>
+        <div class="g-two g-three">
+          <div class="g-box"><strong>👁️ Apariencia</strong><p class="muted">Lo que compras para que otros te vean de cierta forma. Satisfacción momentánea y vacía.</p></div>
+          <div class="g-box"><strong>⚙️ Obligatorio</strong><p class="muted">Lo necesario para vivir. No te da alegría, pero es indispensable.</p></div>
+          <div class="g-box g-box--green"><strong>🌟 Valor personal</strong><p class="muted">Lo que te hace genuinamente mejor o más feliz: salud, aprendizaje, experiencias reales. Satisfacción duradera.</p></div>
+        </div>
+        <p>El objetivo: <strong>minimizar</strong> el gasto de apariencia, <strong>optimizar</strong> el obligatorio y <strong>maximizar</strong> el de valor personal. Antes de comprar, tres preguntas:</p>
+        <ol class="g-checklist">
+          <li>¿Lo compro por mí o por lo que los demás pensarán?</li>
+          <li>¿Seguiré valorándolo en 6 meses?</li>
+          <li>¿Esto me hace <em>mejor</em> o solo me hace <em>ver</em> mejor?</li>
+        </ol>
+        <p>Y el hábito que separa a quienes construyen riqueza del resto: <strong>págate primero a ti mismo.</strong> En lugar de ahorrar lo que sobra, invierte primero (empieza con un 10% de tus ingresos, en transferencia automática el día de cobro) y vive con el resto.</p>
+      </section>
+
+      <!-- ── 4. Inflación ── -->
+      <section id="inflacion" class="g-sec">
+        <h2>4. La inflación: por qué el dinero quieto pierde</h2>
+        <p>La inflación es el aumento sostenido de los precios: con el mismo dinero, mañana compras menos que hoy. Con una inflación de ~3.5%, esos <strong>$100</strong> de hoy tendrán el poder de compra de apenas <strong>$50</strong> en 20 años. No perdiste el dinero — perdiste la mitad de su valor.</p>
+        <p>Por eso hay que pensar en <strong>retorno real</strong>, no nominal:</p>
+        <div class="g-formula">
+          <div class="g-formula__eq" style="font-size:1.3rem">Retorno Real = Retorno Nominal − Inflación</div>
+          <p class="muted">Una cuenta de ahorros al 1.5% con inflación del 3.5% te da <strong>−2% real</strong>. Estás perdiendo, aunque el número en tu cuenta no baje.</p>
+        </div>
+        <p>Creer que tu dinero "está seguro" parado en el banco es una ilusión: está seguro en número, pero pierde valor en lo que puede comprar. <strong>Guardar sin invertir es, técnicamente, perder.</strong></p>
+      </section>
+
+      <!-- ── 5. Invertir sin jerga ── -->
+      <section id="invertir" class="g-sec">
+        <h2>5. Invertir sin jerga: acciones y ETFs</h2>
+        <p>Una <strong>acción</strong> es una fracción de propiedad de una empresa. Cuando compras una acción de Apple, te vuelves dueño de una pequeña parte del negocio — sus productos, sus ganancias futuras. Invertir no es apostar: es <strong>hacerte socio de buenos negocios</strong>.</p>
+        <blockquote class="g-quote">"El precio es lo que pagas. El valor es lo que obtienes." — Warren Buffett</blockquote>
+        <p>El <strong>precio</strong> fluctúa a diario con las emociones del mercado; el <strong>valor</strong> es lo que la empresa realmente vale. A corto plazo el mercado es irracional (miedo y euforia); a largo plazo es muy racional (refleja ganancias y crecimiento). Por eso el inversor de largo plazo ignora el ruido diario.</p>
+        <p>¿Y si no quieres elegir empresas una por una? Para eso existe el <strong>ETF</strong>: una canasta de muchas acciones en un solo instrumento. Comprando un ETF del S&P 500 (como VOO) inviertes de golpe en las 500 empresas más grandes de EE.UU. — diversificación instantánea con una sola operación.</p>
+        <div class="g-two">
+          <div class="g-box g-box--green"><strong>📦 ETF indexado</strong><p class="muted">Diversificación automática, bajo riesgo de pérdida total, ideal para empezar. Sigue al mercado. Ej: VOO, QQQ, VTI.</p></div>
+          <div class="g-box"><strong>🎯 Acción individual</strong><p class="muted">Potencial de superar al mercado si inviertes en lo que entiendes — pero requiere análisis y más riesgo. Ej: AAPL, MSFT.</p></div>
+        </div>
+        <p>No tienes que elegir uno u otro. El enfoque más equilibrado es <strong>Core-Satellite</strong>: 70-80% en ETFs diversificados (tu base estable) y 20-30% en acciones de alta convicción. Dato clave: el <strong>90% de los fondos gestionados por profesionales no le gana al S&P 500</strong> a largo plazo. La simplicidad gana.</p>
+      </section>
+
       <!-- ── 6. Errores ── -->
       <section id="errores" class="g-sec">
-        <h2>5. Los 3 errores que te frenan</h2>
-        <div class="g-error"><span>✕</span><div><strong>No empezar.</strong> El error más caro de todos. Esperar "hasta saber más" o "hasta tener más" solo le regala años a la inflación.</div></div>
-        <div class="g-error"><span>✕</span><div><strong>Esperar el momento perfecto.</strong> Nadie sabe cuándo el mercado está "barato". Timing the market casi siempre pierde contra time in the market.</div></div>
-        <div class="g-error"><span>✕</span><div><strong>Perseguir modas.</strong> La acción de moda, la cripto del momento, el "tip" del gurú. Sin una filosofía clara, terminas comprando caro y vendiendo con miedo.</div></div>
+        <h2>6. Los errores que te frenan</h2>
+        <div class="g-error"><span>✕</span><div><strong>Vender en pánico cuando el mercado cae.</strong> Las correcciones del 10-20% son normales. Quien vende en la caída convierte una pérdida temporal en permanente.</div></div>
+        <div class="g-error"><span>✕</span><div><strong>Intentar adivinar el momento ("timing").</strong> Nadie sabe cuándo es el mínimo. El tiempo <em>en</em> el mercado le gana al tiempo <em>fuera</em> del mercado.</div></div>
+        <div class="g-error"><span>✕</span><div><strong>Seguir hypes y "tips".</strong> Cuando todos hablan de una acción, generalmente ya subió. Eso es especular, no invertir.</div></div>
+        <div class="g-error"><span>✕</span><div><strong>Invertir dinero que necesitas pronto.</strong> Solo invierte lo que puedas dejar intocable 3-5 años. Primero el fondo de emergencia.</div></div>
+        <div class="g-error"><span>✕</span><div><strong>Esperar a "saber suficiente".</strong> El conocimiento perfecto nunca llega. El error más caro de todos es no empezar por querer estar 100% listo.</div></div>
       </section>
 
       <!-- ── 7. Primer paso ── -->
       <section id="primer-paso" class="g-sec">
-        <h2>6. Tu primer paso concreto, hoy</h2>
-        <p>No necesitas hacerlo todo de una vez. Necesitas dar <strong>el primer paso</strong>. Aquí está tu checklist de arranque:</p>
+        <h2>7. Tu primer paso, en el orden correcto</h2>
+        <p>Antes de invertir un solo dólar, sigue este orden — no lo saltes:</p>
         <ol class="g-checklist">
-          <li><strong>Define tu tasa de ahorro.</strong> Decide qué porcentaje de tus ingresos vas a invertir cada mes — aunque empieces con poco. La constancia importa más que el monto.</li>
-          <li><strong>Págate primero a ti mismo.</strong> Automatiza esa transferencia el día que cobras, antes de gastar. Lo que no ves, no lo gastas.</li>
-          <li><strong>Entiende que sí puedes acceder a la bolsa de EE.UU.</strong> Desde Latinoamérica, con un bróker internacional, puedes invertir en VOO o QQQ. No necesitas vivir allá.</li>
-          <li><strong>Empieza simple.</strong> Un solo ETF indexado, de forma constante, ya te pone por delante del 90% que sigue esperando.</li>
+          <li><strong>Elimina la deuda de alto interés (+15%).</strong> Ninguna inversión le gana al 24% que cobra una tarjeta. Esa deuda cancela cualquier retorno.</li>
+          <li><strong>Arma tu fondo de emergencia.</strong> 3 a 6 meses de gastos en cuenta líquida (no invertido). Es tu red de seguridad para no vender inversiones en mal momento.</li>
+          <li><strong>Ahora sí: invierte el excedente cada mes.</strong> Lo que sobra después de gastos y fondo de emergencia.</li>
         </ol>
-        <p>Cada uno de estos pasos tiene su detalle — y ahí es donde entran mis recursos completos.</p>
+        <p>¿Cómo invertir sin estresarte por el "momento perfecto"? Con <strong>DCA (Dollar Cost Averaging)</strong>: inviertes una cantidad fija cada mes, sin importar si el mercado está arriba o abajo. Cuando está bajo compras más; cuando está alto, menos. Tu costo promedio se optimiza solo. Simple, disciplinado, efectivo.</p>
+        <p>Y recuerda: la cantidad de tu primera inversión importa menos que <strong>empezar</strong>. El objetivo es aprender el proceso, no hacerte rico con la primera compra.</p>
       </section>
 
       <!-- ── 8. Content upgrade (captura de correo) ── -->
@@ -185,21 +230,21 @@ const articleSchema = {
         </form>
       </section>
 
-      <!-- ── 9. Próximo paso: productos ── -->
+      <!-- ── 9. Próximo paso: modelo real ── -->
       <section class="g-sec">
-        <h2>¿Y ahora qué? El siguiente paso, según tu caso</h2>
-        <p>Esta guía te dio el mapa. Cuando quieras el paso a paso detallado, según cuál sea tu freno:</p>
+        <h2>¿Y ahora qué? Cómo profundizar</h2>
+        <p>Esta guía te dio el <strong>qué</strong> y el <strong>por qué</strong>. Cuando quieras el <strong>cómo</strong> — mi estrategia completa y verla en la práctica:</p>
         <div class="g-two g-products">
           <div class="g-box g-box--product">
-            <div class="g-tag">Si tu freno es el dinero</div>
-            <strong>Sistema de Presupuesto</strong>
-            <p class="muted">Para saber exactamente a dónde va tu dinero y liberar margen para invertir. Guía + plantilla.</p>
+            <div class="g-tag">La estrategia</div>
+            <strong>La guía de estrategia</strong>
+            <p class="muted">Mi sistema completo explicado a nivel macro: cómo decido, cómo construyo el portafolio y cómo lo gestiono en el tiempo.</p>
             <span class="g-soon">Próximamente</span>
           </div>
           <div class="g-box g-box--product">
-            <div class="g-tag">Si tu freno es la bolsa</div>
-            <strong>Tu primer $100,000 en dólares</strong>
-            <p class="muted">El paso a paso para invertir en la bolsa de EE.UU. desde Latinoamérica, sin vivir allá.</p>
+            <div class="g-tag">En la práctica</div>
+            <strong>La comunidad</strong>
+            <p class="muted">Sígueme en vivo: qué compro y vendo cada semana, mi razonamiento detrás de cada movida, soporte a tus consultas y recursos curados para todos los niveles.</p>
             <span class="g-soon">Próximamente</span>
           </div>
         </div>
@@ -248,25 +293,30 @@ const articleSchema = {
   .g-sec { margin-bottom: 40px; }
   .g-sec h2 { margin-bottom: 16px; }
   .g-sec p { font-size: 1.08rem; line-height: 1.8; color: var(--ink-soft); }
-  .g-list { display: grid; gap: 12px; padding-left: 20px; }
-  .g-list li { font-size: 1.06rem; line-height: 1.7; color: var(--ink-soft); }
 
   /* Cajas comparativas */
   .g-two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 22px 0; }
+  .g-three { grid-template-columns: repeat(3, 1fr); }
   .g-box { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
   .g-box strong { font-size: 1.1rem; }
   .g-box p { font-size: .96rem; line-height: 1.6; margin: 6px 0 0; }
   .g-box--green { border-top: 3px solid var(--green); }
   .g-box--red { border-top: 3px solid var(--danger); }
 
+  /* Fórmula destacada */
+  .g-formula { text-align: center; background: var(--gray-100); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 26px; margin: 24px 0; }
+  .g-formula__label { font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: 10px; }
+  .g-formula__eq { font-size: 1.6rem; font-weight: 800; color: var(--green-deep); letter-spacing: -0.01em; margin-bottom: 10px; }
+  .g-formula p { font-size: .98rem; margin: 0; }
+
+  /* Highlight (pregunta clave) */
+  .g-highlight { background: var(--navy); color: #fff; border-radius: var(--radius-lg); padding: 28px 30px; margin: 24px 0; }
+  .g-highlight__q { font-size: 1.5rem; font-weight: 800; color: var(--green-bright); margin-bottom: 12px; }
+  .g-highlight p { color: rgba(255,255,255,.9); font-size: 1.05rem; line-height: 1.75; margin: 0; }
+  .g-highlight strong { color: #fff; }
+
   /* Quote */
   .g-quote { margin: 26px 0; padding: 20px 26px; background: var(--green-100); border-left: 4px solid var(--green); border-radius: 0 12px 12px 0; font-size: 1.18rem; font-weight: 700; color: var(--navy); line-height: 1.5; }
-
-  /* Principios */
-  .g-principios { list-style: none; padding: 0; margin: 0; display: grid; gap: 16px; }
-  .g-principios li { display: flex; gap: 16px; align-items: flex-start; }
-  .g-principios span { flex-shrink: 0; font-weight: 800; color: var(--indigo); font-size: 1.1rem; width: 30px; }
-  .g-principios div { font-size: 1.06rem; line-height: 1.6; color: var(--ink-soft); }
 
   /* Errores */
   .g-error { display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--line); }
@@ -304,7 +354,7 @@ const articleSchema = {
   .footer a { color: rgba(255,255,255,.8); }
 
   @media (max-width: 720px) {
-    .g-two, .g-optin { grid-template-columns: 1fr; }
+    .g-two, .g-three, .g-optin { grid-template-columns: 1fr; }
     .nav__links { display: none; }
   }
 </style>

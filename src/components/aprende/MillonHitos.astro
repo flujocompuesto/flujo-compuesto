@@ -1,0 +1,101 @@
+---
+// Recreación original (marca Flujo Compuesto) de la "aceleración del compuesto":
+// curva de acumulación hasta la meta con hitos cada $100k y el tiempo de cada tramo.
+// Estática (SVG calculado en build).
+interface Props {
+  annual?: number;   // aporte anual
+  ratePct?: number;  // rendimiento anual %
+  goal?: number;     // meta
+  step?: number;     // tamaño de cada hito
+}
+const { annual = 10000, ratePct = 7, goal = 1000000, step = 100000 } = Astro.props;
+const r = ratePct / 100;
+
+const yearAt = (t: number) => Math.log(1 + (r * t) / annual) / Math.log(1 + r);
+const balAt = (n: number) => annual * ((Math.pow(1 + r, n) - 1) / r);
+
+const milestones: { amount: number; year: number; tranche: number }[] = [];
+for (let k = step; k <= goal + 1; k += step) {
+  const year = yearAt(k);
+  milestones.push({ amount: k, year, tranche: year - (milestones.length ? milestones[milestones.length - 1].year : 0) });
+}
+const totalYears = milestones[milestones.length - 1].year;
+
+const C_LINE = '#128A46', C_FILL = '#1DBE60', C_DOT = '#24344B', C_GRID = '#E2E5E9', C_MUTED = '#64707F', C_INK = '#24344B';
+const W = 720, H = 430, PL = 20, PR = 20, PT = 30, PB = 46;
+const plotW = W - PL - PR, plotH = H - PT - PB;
+const x = (yr: number) => PL + (yr / totalYears) * plotW;
+const y = (v: number) => PT + (1 - v / goal) * plotH;
+
+// Curva suave muestreando el balance
+const pts: string[] = [];
+for (let i = 0; i <= 60; i++) {
+  const n = (totalYears * i) / 60;
+  pts.push(`${x(n).toFixed(1)} ${y(balAt(n)).toFixed(1)}`);
+}
+const curve = 'M' + pts.join(' L');
+const area = `M${x(0)} ${y(0)} L` + pts.join(' L') + ` L${x(totalYears)} ${y(0)} Z`;
+
+const fmtK = (n: number) => (n >= 1e6 ? '$' + (n / 1e6).toFixed(n % 1e6 === 0 ? 0 : 1) + 'M' : '$' + Math.round(n / 1e3) + 'k');
+
+// Barra de distribución del tiempo: 1er $100k / 2º $100k / resto
+const seg1 = milestones[0].year / totalYears;
+const seg2 = (milestones[1].year - milestones[0].year) / totalYears;
+const seg3 = 1 - seg1 - seg2;
+---
+
+<figure class="mh">
+  <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`Curva de acumulación hasta ${fmtK(goal)} invirtiendo ${fmtK(annual)} al año al ${ratePct}%: cada hito de ${fmtK(step)} llega más rápido que el anterior.`}>
+    <defs>
+      <linearGradient id="mhfill" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color={C_FILL} stop-opacity="0.20" />
+        <stop offset="100%" stop-color={C_FILL} stop-opacity="0" />
+      </linearGradient>
+    </defs>
+    <line x1={PL} y1={y(0)} x2={W - PR} y2={y(0)} stroke={C_GRID} stroke-width="1.5" />
+    <path d={area} fill="url(#mhfill)" />
+
+    {milestones.map((m) => (
+      <line x1={x(m.year)} y1={y(m.amount)} x2={x(m.year)} y2={y(0)} stroke={C_GRID} stroke-width="1" stroke-dasharray="3 3" />
+    ))}
+    <path d={curve} fill="none" stroke={C_LINE} stroke-width="3" stroke-linecap="round" />
+
+    {milestones.map((m, i) => (
+      <g>
+        <circle cx={x(m.year)} cy={y(m.amount)} r="4" fill={C_DOT} />
+        <text x={x(m.year) - 5} y={y(m.amount) - 8} text-anchor="end" font-size="10.5" font-weight="700" fill={C_INK}>{fmtK(m.amount)}</text>
+        {/* tiempo del tramo, sobre el eje X, en el centro del tramo */}
+        <text x={(x(i ? milestones[i - 1].year : 0) + x(m.year)) / 2} y={H - PB + 16} text-anchor="middle" font-size="9.5" fill={C_MUTED}>{m.tranche.toFixed(m.tranche >= 10 ? 0 : 2)}</text>
+      </g>
+    ))}
+    <text x={PL} y={H - PB + 32} font-size="9" fill={C_MUTED}>← años que tarda cada tramo de {fmtK(step)} (cada vez menos)</text>
+  </svg>
+
+  <!-- Barra de distribución del tiempo -->
+  <div class="mh-bar" aria-hidden="true">
+    <div class="seg s1" style={`width:${(seg1 * 100).toFixed(1)}%`}>{Math.round(seg1 * 100)}%</div>
+    <div class="seg s2" style={`width:${(seg2 * 100).toFixed(1)}%`}>{Math.round(seg2 * 100)}%</div>
+    <div class="seg s3" style={`width:${(seg3 * 100).toFixed(1)}%`}>{Math.round(seg3 * 100)}%</div>
+  </div>
+  <div class="mh-legend">
+    <span><i style="background:#6FE3A5"></i>1<sup>er</sup> {fmtK(step)}</span>
+    <span><i style="background:#E0A93C"></i>2<sup>º</sup> {fmtK(step)}</span>
+    <span><i style="background:#1DBE60"></i>los otros {fmtK(goal - 2 * step)}</span>
+  </div>
+  <figcaption>Invirtiendo {fmtK(annual)} al año al {ratePct}% — el 1<sup>er</sup> {fmtK(step)} tarda {milestones[0].year.toFixed(1)} años; el último, solo {milestones[milestones.length - 1].tranche.toFixed(2)}.</figcaption>
+</figure>
+
+<style>
+  .mh { margin: 28px 0; }
+  .mh svg { width: 100%; height: auto; display: block; }
+  .mh-bar { display: flex; border-radius: 8px; overflow: hidden; margin-top: 6px; height: 30px; font-size: .8rem; font-weight: 800; }
+  .mh-bar .seg { display: flex; align-items: center; justify-content: center; color: #24344B; }
+  .mh-bar .s1 { background: #6FE3A5; }
+  .mh-bar .s2 { background: #E0A93C; }
+  .mh-bar .s3 { background: #1DBE60; color: #fff; }
+  .mh-legend { display: flex; gap: 16px; justify-content: center; margin-top: 8px; font-size: .82rem; color: var(--ink-soft); }
+  .mh-legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .mh-legend i { width: 11px; height: 11px; border-radius: 3px; display: inline-block; }
+  .mh-legend sup { font-size: .7em; }
+  .mh figcaption { text-align: center; font-size: .88rem; color: var(--muted); margin-top: 10px; }
+</style>

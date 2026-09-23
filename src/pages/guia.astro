@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Nav from '../components/Nav.astro';
+import FormGuard from '../components/FormGuard.astro';
 
 // ── SEO + AI-search: Article con autor (refuerza E-E-A-T) ──
 const site = 'https://flujocompuesto.com';
@@ -214,9 +215,10 @@ const articleSchema = {
         </div>
         <form class="g-form" name="guia-optin" data-subscribe data-source="guia-optin">
           <label for="g-nombre">Nombre</label>
-          <input id="g-nombre" type="text" placeholder="Tu nombre" autocomplete="given-name" required />
+          <input id="g-nombre" name="nombre" type="text" placeholder="Tu nombre" autocomplete="given-name" required />
           <label for="g-email">Correo</label>
-          <input id="g-email" type="email" placeholder="tu@correo.com" autocomplete="email" required />
+          <input id="g-email" name="email" type="email" placeholder="tu@correo.com" autocomplete="email" required />
+          <FormGuard />
           <button type="submit" class="btn btn--primary btn--lg" style="width:100%;justify-content:center">Enviarme el PDF + plantilla</button>
           <p class="g-fine muted">Sin spam. Contenido educativo, no asesoría de inversión. Cancela cuando quieras. <a href="/privacidad">Privacidad</a>.</p>
         </form>

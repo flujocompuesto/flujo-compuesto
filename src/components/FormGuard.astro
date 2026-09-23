@@ -1,0 +1,24 @@
+---
+// Protección anti-bots para los formularios de suscripción. Va dentro del <form>.
+//  1) Campo trampa ("honeypot"): invisible para personas; los bots lo llenan
+//     y la función los descarta.
+//  2) Cloudflare Turnstile: se activa solo si existe la variable de build
+//     PUBLIC_TURNSTILE_SITE_KEY (clave pública). La secreta va en
+//     TURNSTILE_SECRET_KEY (runtime). Hay que configurar LAS DOS juntas.
+const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+---
+<div class="hp" aria-hidden="true">
+  <label>No llenar este campo<input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+</div>
+{siteKey && (
+  <>
+    <div class="cf-turnstile" data-sitekey={siteKey} data-appearance="interaction-only" data-size="flexible" data-language="es"></div>
+    <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  </>
+)}
+
+<style>
+  /* Fuera de la vista pero presente en el DOM (display:none lo delata a algunos bots). */
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .cf-turnstile { margin-top: 12px; }
+</style>

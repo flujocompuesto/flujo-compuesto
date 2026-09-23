@@ -1,7 +1,8 @@
 /**
  * Conecta los formularios de captura de correo con /api/subscribe (Beehiiv).
  * Se aplica a cualquier <form data-subscribe data-source="...">.
- * Dentro del form debe haber un input[type="email"] y (opcional) un input[type="text"].
+ * Dentro del form: input[name="email"], (opcional) input[name="nombre"], y el campo
+ * trampa + widget de Turnstile que agrega el componente FormGuard.
  */
 function wireForms() {
   const forms = document.querySelectorAll('form[data-subscribe]');
@@ -9,8 +10,10 @@ function wireForms() {
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      const emailEl = form.querySelector('input[type="email"]');
-      const nombreEl = form.querySelector('input[type="text"]');
+      const emailEl = form.querySelector('input[name="email"]');
+      const nombreEl = form.querySelector('input[name="nombre"]');
+      const trampa = form.querySelector('input[name="website"]');
+      const tsInput = form.querySelector('input[name="cf-turnstile-response"]');
       const btn = form.querySelector('button[type="submit"]');
       if (!emailEl || !btn) return;
 
@@ -28,7 +31,13 @@ function wireForms() {
         const res = await fetch('/api/subscribe', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, nombre, source }),
+          body: JSON.stringify({
+            email,
+            nombre,
+            source,
+            website: trampa ? trampa.value : '',
+            turnstile: tsInput ? tsInput.value : '',
+          }),
         });
         const data = await res.json().catch(() => ({}));
 
@@ -36,6 +45,10 @@ function wireForms() {
           showSuccess(form, nombre);
         } else if (data.error === 'email_invalido') {
           showMsg(form, 'Revisa tu correo — no parece válido.', 'err');
+          resetBtn(btn, btnLabel);
+        } else if (data.error === 'verificacion') {
+          showMsg(form, 'No pudimos verificar que no eres un robot. Intenta de nuevo.', 'err');
+          resetTurnstile(form);
           resetBtn(btn, btnLabel);
         } else {
           showMsg(form, 'Algo falló al suscribirte. Intenta de nuevo en un momento.', 'err');
@@ -47,6 +60,12 @@ function wireForms() {
       }
     });
   });
+}
+
+// El token de Turnstile es de un solo uso: si el envío falla hay que pedir otro.
+function resetTurnstile(form) {
+  const w = form.querySelector('.cf-turnstile');
+  if (w && window.turnstile) window.turnstile.reset(w);
 }
 
 function resetBtn(btn, label) {
@@ -70,16 +89,18 @@ function showMsg(form, text, kind) {
 
 function showSuccess(form, nombre) {
   const saludo = nombre ? `¡Listo, ${nombre}! ` : '¡Listo! ';
+  // (el saludo se inserta con textContent más abajo, no dentro del HTML)
   form.innerHTML =
     `<div class="subscribe-ok" role="status">` +
     `<div class="subscribe-ok__ic" aria-hidden="true">✓</div>` +
-    `<div class="subscribe-ok__title">${saludo}Aquí tienes tu guía.</div>` +
+    `<div class="subscribe-ok__title"></div>` +
     `<div class="subscribe-ok__dl">` +
     `<a class="btn btn--primary" href="/descargas/guia-flujo-compuesto.pdf" download>📘 Guía en PDF</a>` +
     `<a class="btn btn--ghost" href="/descargas/plantilla-flujo-compuesto.xlsx" download>📊 Plantilla Excel</a>` +
     `</div>` +
     `<div class="subscribe-ok__sub">También te llegará por correo. Si no lo ves, mira en Promociones o Spam.</div>` +
     `</div>`;
+  form.querySelector('.subscribe-ok__title').textContent = `${saludo}Aquí tienes tu guía.`;
 }
 
 if (document.readyState === 'loading') {

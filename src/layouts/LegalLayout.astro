@@ -1,0 +1,52 @@
+---
+// Layout de páginas legales (privacidad, términos): texto largo, sin distracciones.
+import Base from './Base.astro';
+import Nav from '../components/Nav.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  path: string;
+  updated: string; // fecha legible, ej. "23 de septiembre de 2026"
+}
+const { title, description, path, updated } = Astro.props;
+---
+
+<Base title={`${title} | Flujo Compuesto`} description={description} path={path}>
+  <Nav
+    links={[
+      { href: '/aprende', label: 'Aprende' },
+      { href: '/calculadora', label: 'Calculadora' },
+      { href: '/sobre-mi', label: 'Sobre mí' },
+    ]}
+    cta={{ href: '/guia', label: 'Guía gratis' }}
+  />
+
+  <main class="legal">
+    <div class="wrap legal__wrap">
+      <h1>{title}</h1>
+      <p class="muted legal__upd">Última actualización: {updated}</p>
+      <div class="legal__body"><slot /></div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap center" style="font-size:.85rem">
+      <p style="margin:0">© {new Date().getFullYear()} Flujo Compuesto · <a href="/privacidad">Privacidad</a> · <a href="/terminos">Términos</a> · <a href="/">Inicio</a></p>
+    </div>
+  </footer>
+</Base>
+
+<style>
+  .legal { padding: 48px 0 72px; }
+  .legal__wrap { max-width: 760px; }
+  .legal h1 { margin-bottom: 8px; }
+  .legal__upd { font-size: .9rem; margin-bottom: 32px; }
+  .legal__body { font-size: 1.02rem; line-height: 1.75; color: var(--ink-soft); }
+  .legal__body :global(h2) { font-size: 1.25rem; color: var(--navy); margin: 32px 0 10px; }
+  .legal__body :global(p) { margin: 0 0 14px; }
+  .legal__body :global(ul) { margin: 0 0 14px; padding-left: 22px; display: grid; gap: 6px; }
+  .legal__body :global(strong) { color: var(--navy); }
+  .footer { background: var(--ink); color: rgba(255,255,255,.7); padding: 28px 0; }
+  .footer a { color: rgba(255,255,255,.85); }
+</style>

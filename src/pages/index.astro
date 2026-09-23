@@ -34,8 +34,8 @@ const faqSchema = {
 ---
 
 <Base
-  title="Flujo Compuesto — De cero a tu primer portafolio, sin miedo"
-  description="Aprende a poner tu dinero a trabajar. Educación financiera e inversión de largo plazo y bajo costo, para construir tu primer portafolio paso a paso — sin ruido ni promesas de hacerte rico rápido."
+  title="Aprende a invertir desde cero | Flujo Compuesto"
+  description="Educación financiera e inversión de largo plazo y bajo costo, desde Latinoamérica. Construye tu primer portafolio paso a paso, sin ruido ni promesas."
   path="/"
   schema={faqSchema}
 >
@@ -219,7 +219,7 @@ const faqSchema = {
             <label for="email">Correo</label>
             <input id="email" name="email" type="email" placeholder="tu@correo.com" autocomplete="email" required />
             <button type="submit" class="btn btn--primary btn--lg" style="width:100%;justify-content:center">Envíame la guía + plantilla</button>
-            <p class="form__fine muted">Sin spam. Contenido educativo, no asesoría de inversión. Cancela cuando quieras.</p>
+            <p class="form__fine muted">Sin spam. Contenido educativo, no asesoría de inversión. Cancela cuando quieras. <a href="/privacidad">Privacidad</a>.</p>
             <p class="form__fine" style="margin-top:6px;text-align:center">¿Prefieres leerla ya? <a href="/guia"><strong>Lee la guía completa →</strong></a> · <a href="/calculadora"><strong>Abre la calculadora →</strong></a></p>
           </form>
         </div>
@@ -313,7 +313,7 @@ const faqSchema = {
         <strong>educativo e informativo</strong>. No constituye asesoría de inversión, financiera, legal ni
         fiscal personalizada. Invertir conlleva riesgos, incluida la posible pérdida de capital. Antes de
         tomar decisiones, considera tu situación particular y, si lo necesitas, consulta a un profesional licenciado.</p>
-        <p style="margin-top:14px">© {new Date().getFullYear()} Flujo Compuesto. Todos los derechos reservados.</p>
+        <p style="margin-top:14px">© {new Date().getFullYear()} Flujo Compuesto. Todos los derechos reservados. · <a href="/privacidad">Privacidad</a> · <a href="/terminos">Términos</a></p>
       </div>
     </div>
   </footer>
@@ -411,6 +411,7 @@ const faqSchema = {
   .footer__inner { display: grid; grid-template-columns: 1fr 1.4fr; gap: 44px; }
   .footer__disc { font-size: .84rem; line-height: 1.7; }
   .footer .muted { color: rgba(255,255,255,.55); }
+  .footer a { color: rgba(255,255,255,.85); text-decoration: underline; text-underline-offset: 2px; }
 
   @media (max-width: 900px) {
     .hero__grid, .filosofia__grid, .freebie__card, .footer__inner { grid-template-columns: 1fr; }

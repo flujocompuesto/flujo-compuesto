@@ -31,8 +31,8 @@ const personSchema = {
 ---
 
 <Base
-  title="Sobre mí — Ivan Herrera, el ingeniero detrás de Flujo Compuesto"
-  description="Soy ingeniero, no financiero. En 13 años multipliqué mi patrimonio más de trece veces, invirtiendo desde Panamá en la bolsa de EE.UU. Esta es mi historia y el método que comparto."
+  title="Sobre mí: Ivan Herrera, ingeniero, no financiero"
+  description="Soy ingeniero, no financiero. En 13 años multipliqué mi patrimonio más de 13 veces invirtiendo desde Panamá en la bolsa de EE.UU. Mi historia y método."
   path="/sobre-mi"
   ogType="profile"
   schema={personSchema}
@@ -196,7 +196,7 @@ const personSchema = {
         <strong>educativo e informativo</strong>. No constituye asesoría de inversión, financiera, legal ni
         fiscal personalizada. Invertir conlleva riesgos, incluida la posible pérdida de capital. Antes de
         tomar decisiones, considera tu situación particular y, si lo necesitas, consulta a un profesional licenciado.</p>
-        <p style="margin-top:14px">© {new Date().getFullYear()} Flujo Compuesto. Todos los derechos reservados.</p>
+        <p style="margin-top:14px">© {new Date().getFullYear()} Flujo Compuesto. Todos los derechos reservados. · <a href="/privacidad">Privacidad</a> · <a href="/terminos">Términos</a></p>
       </div>
     </div>
   </footer>
@@ -268,6 +268,7 @@ const personSchema = {
   .footer__inner { display: grid; grid-template-columns: 1fr 1.4fr; gap: 44px; }
   .footer__disc { font-size: .84rem; line-height: 1.7; }
   .footer .muted { color: rgba(255,255,255,.55); }
+  .footer a { color: rgba(255,255,255,.85); text-decoration: underline; text-underline-offset: 2px; }
 
   @media (max-width: 900px) {
     .a-hero__grid { grid-template-columns: 1fr; gap: 32px; }

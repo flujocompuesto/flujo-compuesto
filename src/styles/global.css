@@ -118,6 +118,8 @@ mark { background: var(--green-100); color: inherit; padding: 0 .18em; border-ra
 .subscribe-ok__ic { width: 48px; height: 48px; margin: 0 auto 12px; border-radius: 50%; background: var(--green-100); color: var(--green-deep); font-size: 1.6rem; font-weight: 800; display: flex; align-items: center; justify-content: center; }
 .subscribe-ok__title { font-weight: 800; font-size: 1.15rem; color: var(--ink); }
 .subscribe-ok__sub { font-size: .92rem; color: var(--muted); margin-top: 6px; }
+.subscribe-ok__dl { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: 16px 0 8px; }
+.subscribe-ok__dl .btn { padding: 12px 20px; font-size: .95rem; }
 
 @media (max-width: 900px) {
   .grid-3 { grid-template-columns: 1fr; }

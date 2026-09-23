@@ -73,8 +73,12 @@ function showSuccess(form, nombre) {
   form.innerHTML =
     `<div class="subscribe-ok" role="status">` +
     `<div class="subscribe-ok__ic" aria-hidden="true">✓</div>` +
-    `<div class="subscribe-ok__title">${saludo}Revisa tu correo.</div>` +
-    `<div class="subscribe-ok__sub">Te envié el acceso. Si no lo ves, mira en Promociones o Spam.</div>` +
+    `<div class="subscribe-ok__title">${saludo}Aquí tienes tu guía.</div>` +
+    `<div class="subscribe-ok__dl">` +
+    `<a class="btn btn--primary" href="/descargas/guia-flujo-compuesto.pdf" download>📘 Guía en PDF</a>` +
+    `<a class="btn btn--ghost" href="/descargas/plantilla-flujo-compuesto.xlsx" download>📊 Plantilla Excel</a>` +
+    `</div>` +
+    `<div class="subscribe-ok__sub">También te llegará por correo. Si no lo ves, mira en Promociones o Spam.</div>` +
     `</div>`;
 }
 

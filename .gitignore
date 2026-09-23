@@ -22,3 +22,6 @@ Thumbs.db
 
 # cloudflare
 .wrangler/
+
+# salida temporal de los generadores de descargas
+scripts/descargas/build/
